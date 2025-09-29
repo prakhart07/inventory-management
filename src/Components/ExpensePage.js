@@ -1,5 +1,5 @@
 import React from "react";
-import "../Assests/CSS/expense.css";
+import "../Assets/CSS/expence.css"
 
 const Dashboard = () => {
     const todayExpenses = [
