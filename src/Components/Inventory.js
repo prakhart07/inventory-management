@@ -194,7 +194,7 @@ function InventoryTracke() {
                                     </tbody>
                                 </table>
                             </div>
-
+   
                             {/* ===== Todo / Action Items ===== */}
                             <div className="todo-section">
                                 <h3>Action Items</h3>
