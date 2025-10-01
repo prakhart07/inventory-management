@@ -134,19 +134,7 @@ const BudgetManagement = () => {
 
     return (
         <div className="budget-container">
-            {/* Header */}
-            <div className="budget-header">
-                <div className="budget-header-content">
-                    <div className="budget-header-title">
-                        <div className="budget-header-icon">
-                            <DollarSign size={28} />
-                        </div>
-                        <h1 className="budget-h1">Budget Management System</h1>
-                    </div>
-                    <p className="budget-header-subtitle">Track and manage project budgets across all construction sites</p>
-                </div>
-            </div>
-
+        
             {/* Main Content */}
             <div className="budget-main-content">
                 {/* Stats Grid */}
