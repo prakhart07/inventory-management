@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoginPage from  "../src/Components/LoginPage"
 import ExpencePage from "../src/Components/ExpensePage"
 import Inventory from "../src/Components/Inventory"
+import ExpenseTracker from '../src/Components/ExpenseTracker';
 
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
     <Route path='*' element = {<LoginPage/>}/>
     <Route path='/expense' element = {<ExpencePage/>}/>
     <Route path='/inventory' element={<Inventory />} />
+    <Route path='/expensetrake' element = {<ExpenseTracker/>}/>
     
     
 
