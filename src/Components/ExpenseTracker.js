@@ -143,7 +143,7 @@ function ExpenseTracker  ()  {
     return (
         <div className="expense-tracker-container">
             {/* Header */}
-            <div className="expense-header">
+            {/* <div className="expense-header">
                 <div className="expense-header-content">
                     <div className="expense-header-title">
                         <div className="expense-header-icon">💰</div>
@@ -151,7 +151,7 @@ function ExpenseTracker  ()  {
                     </div>
                     <p className="expense-header-subtitle">Indore, Madhya Pradesh | Track & Manage Construction Expenses</p>
                 </div>
-            </div>
+            </div> */}
 
             <div className="expense-main-content">
                 {/* Stats Cards */}
