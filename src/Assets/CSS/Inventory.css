@@ -57,18 +57,18 @@
 
     0%,
     100% {
-        box-shadow: 0 0 20px rgba(102, 126, 234, 0.5);
+        box-shadow: 0 0 20px rgba(44, 62, 80, 0.5);
     }
 
     50% {
-        box-shadow: 0 0 40px rgba(102, 126, 234, 0.8);
+        box-shadow: 0 0 40px rgba(44, 62, 80, 0.8);
     }
 }
 
 /* Main Container */
 .app-container {
     min-height: 100vh;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
     padding: 20px;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
 }
@@ -86,7 +86,7 @@
 /* Header */
 .header {
     padding: 30px 40px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
     color: white;
     position: relative;
     overflow: hidden;
@@ -154,7 +154,7 @@
 
 .tab.active {
     background: white;
-    color: #667eea;
+    color: #2c3e50;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 }
 
@@ -175,33 +175,35 @@
 .stat-card {
     padding: 24px;
     border-radius: 16px;
-    background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%);
-    border: 2px solid #c4b5fd;
+    background: white;
+    border: 2px solid #e0e0e0;
     transition: all 0.3s ease;
     animation: scaleIn 0.5s ease-out;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .stat-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 12px 30px rgba(102, 126, 234, 0.2);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
 }
 
 .stat-icon {
     width: 48px;
     height: 48px;
     border-radius: 12px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
     display: flex;
     align-items: center;
     justify-content: center;
     margin-bottom: 12px;
     color: white;
     font-size: 24px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
 }
 
 .stat-label {
     font-size: 13px;
-    color: #6b21a8;
+    color: #666;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -211,7 +213,7 @@
 .stat-value {
     font-size: 32px;
     font-weight: 700;
-    color: #4c1d95;
+    color: #2c3e50;
 }
 
 /* Search Bar */
@@ -230,7 +232,7 @@
 .search-input {
     width: 100%;
     padding: 14px 16px 14px 44px;
-    border: 2px solid #c4b5fd;
+    border: 2px solid #e0e0e0;
     border-radius: 12px;
     font-size: 15px;
     transition: all 0.3s ease;
@@ -238,8 +240,8 @@
 
 .search-input:focus {
     outline: none;
-    border-color: #667eea;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    border-color: #2c3e50;
+    box-shadow: 0 0 0 3px rgba(44, 62, 80, 0.1);
 }
 
 .search-icon {
@@ -247,13 +249,13 @@
     left: 14px;
     top: 50%;
     transform: translateY(-50%);
-    color: #667eea;
+    color: #2c3e50;
 }
 
 .filter-btn,
 .add-btn {
     padding: 14px 20px;
-    border: 2px solid #c4b5fd;
+    border: 2px solid #e0e0e0;
     background: white;
     border-radius: 12px;
     cursor: pointer;
@@ -263,25 +265,25 @@
     font-size: 15px;
     font-weight: 500;
     transition: all 0.3s ease;
-    color: #667eea;
+    color: #2c3e50;
 }
 
 .filter-btn:hover,
 .add-btn:hover {
-    border-color: #667eea;
-    background: #f3e8ff;
+    border-color: #2c3e50;
+    background: #f5f5f5;
     transform: translateY(-2px);
 }
 
 .add-btn {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
     color: white;
     border: none;
 }
 
 .add-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+    box-shadow: 0 8px 20px rgba(44, 62, 80, 0.4);
 }
 
 /* Stock Alerts */
@@ -297,14 +299,15 @@
     padding: 24px;
     border-radius: 16px;
     background: white;
-    border: 2px solid #e5e7eb;
+    border: 2px solid #e0e0e0;
     transition: all 0.3s ease;
     animation: scaleIn 0.5s ease-out;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .alert-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
 }
 
 .alert-header {
@@ -328,7 +331,7 @@
 .alert-count {
     font-size: 32px;
     font-weight: 700;
-    color: #1f2937;
+    color: #2c3e50;
 }
 
 .alert-items {
@@ -346,8 +349,8 @@
 }
 
 .alert-item:hover {
-    background: #e9d5ff;
-    color: #4c1d95;
+    background: #e0e0e0;
+    color: #2c3e50;
     transform: translateX(4px);
 }
 
@@ -355,9 +358,10 @@
 .table-container {
     overflow-x: auto;
     border-radius: 16px;
-    border: 2px solid #c4b5fd;
+    border: 2px solid #e0e0e0;
     margin-bottom: 40px;
     animation: fadeIn 1.2s ease-out;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 table {
@@ -367,7 +371,7 @@ table {
 }
 
 thead {
-    background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%);
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
 }
 
 th {
@@ -375,16 +379,16 @@ th {
     text-align: left;
     font-size: 13px;
     font-weight: 600;
-    color: #6b21a8;
+    color: white;
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
 
 td {
     padding: 16px;
-    border-top: 1px solid #e9d5ff;
+    border-top: 1px solid #e0e0e0;
     font-size: 14px;
-    color: #1f2937;
+    color: #333;
 }
 
 tbody tr {
@@ -392,7 +396,7 @@ tbody tr {
 }
 
 tbody tr:hover {
-    background: #faf5ff;
+    background: #f9fafb;
 }
 
 /* Badges */
@@ -451,9 +455,9 @@ tbody tr:hover {
 }
 
 .status-order {
-    background: #e9d5ff;
-    color: #6b21a8;
-    border-color: #c4b5fd;
+    background: #e0e0e0;
+    color: #2c3e50;
+    border-color: #bdbdbd;
 }
 
 .status-default {
@@ -465,12 +469,12 @@ tbody tr:hover {
 .unit-badge {
     display: inline-block;
     padding: 4px 10px;
-    background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%);
+    background: #f5f5f5;
     border-radius: 6px;
     font-size: 13px;
     font-weight: 600;
-    color: #6b21a8;
-    border: 1px solid #c4b5fd;
+    color: #2c3e50;
+    border: 1px solid #e0e0e0;
 }
 
 .category-badge {
@@ -478,14 +482,14 @@ tbody tr:hover {
     border-radius: 8px;
     font-size: 13px;
     font-weight: 500;
-    background: #faf5ff;
-    color: #6b21a8;
-    border: 1px solid #e9d5ff;
+    background: #f9fafb;
+    color: #2c3e50;
+    border: 1px solid #e0e0e0;
 }
 
 .summary-row {
     font-weight: 700;
-    background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%);
+    background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
 }
 
 /* Two Column Layout */
@@ -501,7 +505,7 @@ tbody tr:hover {
     font-size: 24px;
     font-weight: 700;
     margin-bottom: 20px;
-    color: #4c1d95;
+    color: #2c3e50;
     display: flex;
     align-items: center;
     gap: 12px;
@@ -511,7 +515,7 @@ tbody tr:hover {
     font-size: 20px;
     font-weight: 700;
     margin-bottom: 16px;
-    color: #6b21a8;
+    color: #34495e;
 }
 
 /* Todo Section */
@@ -519,8 +523,9 @@ tbody tr:hover {
     background: white;
     padding: 30px;
     border-radius: 16px;
-    border: 2px solid #c4b5fd;
+    border: 2px solid #e0e0e0;
     animation: fadeIn 1.4s ease-out;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .todo-header {
@@ -533,11 +538,11 @@ tbody tr:hover {
 .todo-header h3 {
     font-size: 24px;
     font-weight: 700;
-    color: #4c1d95;
+    color: #2c3e50;
 }
 
 .pin-icon {
-    color: #667eea;
+    color: #2c3e50;
     animation: pulse 2s ease-in-out infinite;
 }
 
@@ -552,22 +557,22 @@ tbody tr:hover {
     align-items: center;
     gap: 12px;
     padding: 16px;
-    background: #faf5ff;
+    background: #f9fafb;
     border-radius: 12px;
-    border: 2px solid #e9d5ff;
+    border: 2px solid #e0e0e0;
     transition: all 0.3s ease;
 }
 
 .todo-item:hover {
-    background: #f3e8ff;
-    border-color: #c4b5fd;
+    background: #f5f5f5;
+    border-color: #bdbdbd;
     transform: translateX(4px);
 }
 
 .todo-checkbox {
     width: 20px;
     height: 20px;
-    border: 2px solid #667eea;
+    border: 2px solid #2c3e50;
     border-radius: 6px;
     cursor: pointer;
     display: flex;
@@ -578,14 +583,14 @@ tbody tr:hover {
 }
 
 .todo-checkbox.checked {
-    background: #667eea;
-    border-color: #667eea;
+    background: #2c3e50;
+    border-color: #2c3e50;
 }
 
 .todo-text {
     flex: 1;
     font-size: 15px;
-    color: #4c1d95;
+    color: #2c3e50;
 }
 
 .todo-text.completed {
@@ -598,8 +603,9 @@ tbody tr:hover {
     background: white;
     padding: 30px;
     border-radius: 16px;
-    border: 2px solid #c4b5fd;
+    border: 2px solid #e0e0e0;
     animation: fadeIn 1s ease-out;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .calendar-header {
@@ -612,29 +618,29 @@ tbody tr:hover {
 .calendar-month {
     font-size: 20px;
     font-weight: 700;
-    color: #4c1d95;
+    color: #2c3e50;
 }
 
 .calendar-nav {
     width: 36px;
     height: 36px;
     border: none;
-    background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%);
+    background: #f5f5f5;
     border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     transition: all 0.3s ease;
-    color: #667eea;
-    border: 2px solid #c4b5fd;
+    color: #2c3e50;
+    border: 2px solid #e0e0e0;
 }
 
 .calendar-nav:hover {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
     color: white;
     transform: scale(1.1);
-    border-color: #667eea;
+    border-color: #2c3e50;
 }
 
 .calendar-grid {
@@ -648,7 +654,7 @@ tbody tr:hover {
     text-align: center;
     font-size: 13px;
     font-weight: 600;
-    color: #6b21a8;
+    color: #666;
 }
 
 .calendar-day {
@@ -658,22 +664,22 @@ tbody tr:hover {
     justify-content: center;
     border-radius: 8px;
     font-size: 14px;
-    color: #1f2937;
+    color: #333;
     transition: all 0.3s ease;
     cursor: pointer;
     border: 2px solid transparent;
 }
 
 .calendar-day:hover:not(.empty) {
-    background: #f3e8ff;
-    border-color: #c4b5fd;
+    background: #f5f5f5;
+    border-color: #e0e0e0;
 }
 
 .calendar-day.today {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
     color: white;
     font-weight: 700;
-    border-color: #667eea;
+    border-color: #2c3e50;
     animation: glow 2s ease-in-out infinite;
 }
 
@@ -691,15 +697,16 @@ tbody tr:hover {
 .supplier-card {
     padding: 24px;
     background: white;
-    border: 2px solid #c4b5fd;
+    border: 2px solid #e0e0e0;
     border-radius: 16px;
     transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .supplier-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 12px 30px rgba(102, 126, 234, 0.2);
-    border-color: #667eea;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    border-color: #2c3e50;
 }
 
 .supplier-header {
@@ -708,13 +715,13 @@ tbody tr:hover {
     gap: 12px;
     margin-bottom: 16px;
     padding-bottom: 16px;
-    border-bottom: 2px solid #e9d5ff;
+    border-bottom: 2px solid #e0e0e0;
 }
 
 .supplier-icon {
     width: 40px;
     height: 40px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
     border-radius: 10px;
     display: flex;
     align-items: center;
@@ -725,7 +732,7 @@ tbody tr:hover {
 .supplier-name {
     font-size: 18px;
     font-weight: 700;
-    color: #4c1d95;
+    color: #2c3e50;
 }
 
 .supplier-materials {
@@ -737,11 +744,11 @@ tbody tr:hover {
 
 .material-tag {
     padding: 6px 12px;
-    background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%);
+    background: #f5f5f5;
     border-radius: 8px;
     font-size: 13px;
-    color: #6b21a8;
-    border: 1px solid #c4b5fd;
+    color: #2c3e50;
+    border: 1px solid #e0e0e0;
 }
 
 .supplier-contact {
@@ -749,16 +756,16 @@ tbody tr:hover {
     grid-template-columns: 1fr 1fr;
     gap: 12px;
     font-size: 14px;
-    color: #6b7280;
+    color: #666;
     margin-bottom: 12px;
 }
 
 .supplier-notes {
     padding: 12px;
-    background: #faf5ff;
+    background: #f9fafb;
     border-radius: 8px;
     font-size: 13px;
-    color: #6b21a8;
+    color: #666;
     font-style: italic;
 }
 
@@ -766,16 +773,17 @@ tbody tr:hover {
 .project-card {
     padding: 24px;
     background: white;
-    border: 2px solid #c4b5fd;
+    border: 2px solid #e0e0e0;
     border-radius: 16px;
     transition: all 0.3s ease;
     margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .project-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 12px 30px rgba(102, 126, 234, 0.2);
-    border-color: #667eea;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    border-color: #2c3e50;
 }
 
 .project-header {
@@ -788,13 +796,13 @@ tbody tr:hover {
 .project-name {
     font-size: 18px;
     font-weight: 700;
-    color: #4c1d95;
+    color: #2c3e50;
     margin-bottom: 4px;
 }
 
 .project-location {
     font-size: 14px;
-    color: #6b21a8;
+    color: #666;
     display: flex;
     align-items: center;
     gap: 6px;
