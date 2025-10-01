@@ -17,7 +17,7 @@ function App() {
     <Route path='/expense' element = {<ExpencePage/>}/>
     <Route path='/inventory' element={<Inventory />} />
     <Route path='/expensetrake' element = {<ExpenseTracker/>}/>
-    <Route path = '/budget' element = {<Budget/>}/>
+    
     
     
 

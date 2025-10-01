@@ -1,6 +1,8 @@
-// InventoryTracke.jsx (Updated with Inventory Tab Data)
+// InventoryTracke.jsx (Updated with BudgetManagement Tab)
 import React, { useState } from 'react';
-import { Package, AlertTriangle, Calendar, Truck, Hammer, TrendingUp, Check, ChevronLeft, ChevronRight, HardHat } from 'lucide-react';
+import {
+    Package, AlertTriangle, Calendar, Truck, Hammer, Check, ChevronLeft, ChevronRight, HardHat,DollarSign
+} from 'lucide-react';
 import "../Assets/CSS/Inventory.css"
 
 // Import individual tab components
@@ -9,6 +11,7 @@ import DeliveryPage from './Delivery';
 import SuppliersPage from './Supplier';
 import ProjectsPage from './Project';
 import ExpenseTracker from './ExpenseTracker';
+import BudgetManagement from './Budget'; // <-- Added
 
 function InventoryTracke() {
     const [activeTab, setActiveTab] = useState('inventory');
@@ -79,11 +82,6 @@ function InventoryTracke() {
         }
     };
 
-    const stockAlertCounts = inventory.reduce((acc, item) => {
-        acc[item.stockAlert] = (acc[item.stockAlert] || 0) + 1;
-        return acc;
-    }, {});
-
     const totalOnHand = inventory.reduce((sum, item) => sum + item.onHand, 0);
     const totalOnOrder = inventory.reduce((sum, item) => sum + item.onOrder, 0);
     const totalInventoryCost = inventory.reduce((sum, item) => sum + (item.onHand * item.pricePerUnit), 0);
@@ -99,14 +97,27 @@ function InventoryTracke() {
                         </h1>
                         <p className="header-subtitle">📍 Indore, Madhya Pradesh | Track & Manage Construction Materials</p>
                         <div className="tabs">
+                             <button className={`tab ${activeTab === 'projects' ? 'active' : ''}`} onClick={() => setActiveTab('projects')}>
+                                <Hammer size={18} />
+                                Projects
+                            </button>
+                            <button className={`tab ${activeTab === 'budget' ? 'active' : ''}`} onClick={() => setActiveTab('budget')}>
+                                <DollarSign size={18} />
+                                Budget Management
+                            </button>
+                            <button className={`tab ${activeTab === 'ExpenseTracker' ? 'active' : ''}`} onClick={() => setActiveTab('ExpenseTracker')}>
+                                <Hammer size={18} />
+                                Expense Tracker
+                            </button>
+                              <button className={`tab ${activeTab === 'alert' ? 'active' : ''}`} onClick={() => setActiveTab('alert')}>
+                                <AlertTriangle size={18} />
+                                Stock Alerts
+                            </button>
                             <button className={`tab ${activeTab === 'inventory' ? 'active' : ''}`} onClick={() => setActiveTab('inventory')}>
                                 <Package size={18} />
                                 Material Inventory
                             </button>
-                            <button className={`tab ${activeTab === 'alert' ? 'active' : ''}`} onClick={() => setActiveTab('alert')}>
-                                <AlertTriangle size={18} />
-                                Stock Alerts
-                            </button>
+                            
                             <button className={`tab ${activeTab === 'delivery' ? 'active' : ''}`} onClick={() => setActiveTab('delivery')}>
                                 <Calendar size={18} />
                                 Delivery Schedule
@@ -115,14 +126,9 @@ function InventoryTracke() {
                                 <Truck size={18} />
                                 Suppliers
                             </button>
-                            <button className={`tab ${activeTab === 'projects' ? 'active' : ''}`} onClick={() => setActiveTab('projects')}>
-                                <Hammer size={18} />
-                                Projects
-                            </button>
-                            <button className={`tab ${activeTab === 'ExpenseTracker' ? 'active' : ''}`} onClick={() => setActiveTab('ExpenseTracker')}>
-                                <Hammer size={18} />
-                                ExpenseTracker
-                            </button>
+                           
+                            
+                           
                         </div>
                     </div>
                 </div>
@@ -209,6 +215,7 @@ function InventoryTracke() {
                     {activeTab === 'suppliers' && <SuppliersPage />}
                     {activeTab === 'projects' && <ProjectsPage />}
                     {activeTab === 'ExpenseTracker' && <ExpenseTracker />}
+                    {activeTab === 'budget' && <BudgetManagement />} {/* <-- Added */}
                 </div>
             </div>
         </div>
