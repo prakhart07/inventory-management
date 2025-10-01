@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Package, AlertTriangle, Calendar, TrendingUp, Search, Filter, Plus, Check, ChevronLeft, ChevronRight, Truck, HardHat, Hammer } from 'lucide-react';
 import "../Assets/CSS/Inventory.css"
+import ExpenseTracker from './ExpenseTracker';
 
    function InventoryTracke() {
     const [activeTab, setActiveTab] = useState('inventory');
@@ -174,6 +175,10 @@ import "../Assets/CSS/Inventory.css"
                             <button className={`tab ${activeTab === 'projects' ? 'active' : ''}`} onClick={() => setActiveTab('projects')}>
                                 <Hammer size={18} />
                                 Projects
+                            </button>
+                            <button className={`tab ${activeTab === 'ExpenseTracker' ? 'active' : ''}`} onClick={() => setActiveTab('ExpenseTracker')}>
+                                <Hammer size={18} />
+                                ExpenseTracker
                             </button>
                         </div>
                     </div>
@@ -600,6 +605,7 @@ import "../Assets/CSS/Inventory.css"
                             ))}
                         </>
                     )}
+                    {activeTab === 'ExpenseTracker' && <ExpenseTracker/> }
                 </div>
             </div>
         </div>
