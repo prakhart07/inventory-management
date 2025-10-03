@@ -622,3 +622,61 @@
         margin-top: 10px;
     }
 }
+/* ----------------------------- */
+/* Animation CSS for ExpenseTracker Page */
+/* ----------------------------- */
+
+/* Fade-in + Slide animation */
+@keyframes fadeInSlide {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Main container */
+.expense-tracker-container {
+  animation: fadeInSlide 0.5s ease-in-out forwards;
+}
+
+/* Stats cards */
+.expense-stat-card {
+  opacity: 0;
+  animation: fadeInSlide 0.6s ease-in-out forwards;
+}
+
+.expense-stat-card:nth-child(1) { animation-delay: 0.1s; }
+.expense-stat-card:nth-child(2) { animation-delay: 0.2s; }
+.expense-stat-card:nth-child(3) { animation-delay: 0.3s; }
+.expense-stat-card:nth-child(4) { animation-delay: 0.4s; }
+
+/* Categories buttons */
+.expense-category-btn {
+  opacity: 0;
+  animation: fadeInSlide 0.6s ease-in-out forwards;
+}
+
+.expense-category-btn:nth-child(1) { animation-delay: 0.5s; }
+.expense-category-btn:nth-child(2) { animation-delay: 0.55s; }
+.expense-category-btn:nth-child(3) { animation-delay: 0.6s; }
+.expense-category-btn:nth-child(4) { animation-delay: 0.65s; }
+.expense-category-btn:nth-child(5) { animation-delay: 0.7s; }
+.expense-category-btn:nth-child(6) { animation-delay: 0.75s; }
+
+/* Table container */
+.expense-table-container {
+  opacity: 0;
+  animation: fadeInSlide 0.5s ease-in-out forwards;
+  animation-delay: 0.6s;
+}
+
+/* Modal animation */
+.expense-modal-content {
+  opacity: 0;
+  transform: translateY(-20px);
+  animation: fadeInSlide 0.4s ease-in-out forwards;
+}
