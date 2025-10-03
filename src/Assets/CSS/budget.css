@@ -865,4 +865,78 @@
 .budget-comparison-bar.spent {
     transition: width 1s ease-in-out;
 }
- 
+ /* ----------------------------- */
+/* Animation CSS for Budget Page */
+/* ----------------------------- */
+
+/* Fade-in + Slide animation */
+@keyframes fadeInSlide {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Apply animation to main container */
+.budget-container {
+  animation: fadeInSlide 0.5s ease-in-out forwards;
+}
+
+/* Stats cards */
+.budget-stat-card {
+  opacity: 0;
+  animation: fadeInSlide 0.6s ease-in-out forwards;
+}
+
+.budget-stat-card:nth-child(1) { animation-delay: 0.1s; }
+.budget-stat-card:nth-child(2) { animation-delay: 0.2s; }
+.budget-stat-card:nth-child(3) { animation-delay: 0.3s; }
+.budget-stat-card:nth-child(4) { animation-delay: 0.4s; }
+
+/* Tab content */
+.budget-table-container,
+.budget-allocation-grid,
+.budget-comparison-container,
+.budget-alerts-container {
+  opacity: 0;
+  animation: fadeInSlide 0.5s ease-in-out forwards;
+  animation-delay: 0.5s;
+}
+
+/* Allocation cards */
+.budget-allocation-card,
+.budget-chart-card {
+  opacity: 0;
+  animation: fadeInSlide 0.6s ease-in-out forwards;
+}
+
+.budget-allocation-card { animation-delay: 0.6s; }
+.budget-chart-card { animation-delay: 0.8s; }
+
+/* Comparison cards */
+.budget-comparison-card {
+  opacity: 0;
+  animation: fadeInSlide 0.6s ease-in-out forwards;
+  animation-delay: 0.6s;
+}
+
+/* Alerts cards */
+.budget-alert-card {
+  opacity: 0;
+  animation: fadeInSlide 0.6s ease-in-out forwards;
+}
+
+.budget-alert-card:nth-child(1) { animation-delay: 0.6s; }
+.budget-alert-card:nth-child(2) { animation-delay: 0.7s; }
+.budget-alert-card:nth-child(3) { animation-delay: 0.8s; }
+
+/* Modal animation */
+.budget-modal-content {
+  opacity: 0;
+  transform: translateY(-20px);
+  animation: fadeInSlide 0.4s ease-in-out forwards;
+}
