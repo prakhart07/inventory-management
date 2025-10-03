@@ -12,6 +12,7 @@ import SuppliersPage from './Supplier';
 import ProjectsPage from './Project';
 import ExpenseTracker from './ExpenseTracker';
 import BudgetManagement from './Budget'; // <-- Added
+import DataTable from 'react-data-table-component';
 
 function InventoryTracke() {
     const [activeTab, setActiveTab] = useState('inventory');
@@ -82,6 +83,66 @@ function InventoryTracke() {
         }
     };
 
+
+    const columns = [
+	{
+		name: '🏗️ Material Name',
+		selector: row => row.material,
+	},
+    {
+		name: '📏 Unit',
+		selector: row => row.unit,
+	},
+    {
+		name: '🆔 SKU',
+		selector: row => row.sku,
+	},
+    {
+		name: '📂 Category',
+		cell: row => {row.catagory = getCategoryIcon(row.category) + ' ' + row.category; return row.catagory},
+	},
+    {
+		name: '📦 On Hand',
+		selector: row => {row.onHand = row.onHand.toLocaleString(); return row.onHand},
+	},
+    {
+		name: '🚚 On Order',
+		selector: row => {row.onOrder = row.onOrder.toLocaleString(); return row.onOrder},
+	},
+    {
+		name: '⚠️ Stock Alert',
+		selector: row => <span className={`status-badge ${getStockAlertColor(row.stockAlert)}`}>{row.stockAlert}</span>,
+	},
+    {
+		name: '📊 Status',
+		selector: row => <span className={`status-badge ${getStatusColor(row.status)}`}>{getStatusIcon(row.status)} {row.status}</span>,
+	},
+    {
+		name: '📅 Shipped On',
+		selector: row => row.shippedOn,
+	},
+    {
+		name: '🎯 Expected Delivery',
+		selector: row => row.expectedDelivery,
+	},
+    // {
+    //   name: 'Complete',
+    //   cell: row => <button className='btn btn-success' onClick={() => edit(row.task)}>Done</button>
+    // },
+    // {
+    //     name: 'Transfer',
+    //     cell: row => <button className='btn btn-warning' onClick={() => edit(row.task)}>Transfer</button>
+    //   },
+    //   {
+    //     name: 'Action delete',
+    //     cell: row => {
+    //       return <button className='btn btn-danger'  onClick={() => deleteTask(row.task)}>Delete</button>
+    //     }
+    //   },
+];
+
+                                            
+
     const totalOnHand = inventory.reduce((sum, item) => sum + item.onHand, 0);
     const totalOnOrder = inventory.reduce((sum, item) => sum + item.onOrder, 0);
     const totalInventoryCost = inventory.reduce((sum, item) => sum + (item.onHand * item.pricePerUnit), 0);
@@ -93,7 +154,7 @@ function InventoryTracke() {
                     <div className="header-content">
                         <h1>
                             <Hammer size={36} />
-                            Construction Inventory Management
+                            Construction Planning & Management Tool
                         </h1>
                         <p className="header-subtitle">📍 Indore, Madhya Pradesh | Track & Manage Construction Materials</p>
                         <div className="tabs">
@@ -161,38 +222,9 @@ function InventoryTracke() {
                             </div>
 
                             <div className="table-container">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>🏗️ Material Name</th>
-                                            <th>📏 Unit</th>
-                                            <th>🆔 SKU</th>
-                                            <th>📂 Category</th>
-                                            <th>📦 On Hand</th>
-                                            <th>🚚 On Order</th>
-                                            <th>⚠️ Stock Alert</th>
-                                            <th>📊 Status</th>
-                                            <th>📅 Shipped On</th>
-                                            <th>🎯 Expected Delivery</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {inventory.map((item) => (
-                                            <tr key={item.id}>
-                                                <td><strong>{item.material}</strong></td>
-                                                <td>{item.unit}</td>
-                                                <td>{item.sku}</td>
-                                                <td>{getCategoryIcon(item.category)} {item.category}</td>
-                                                <td>{item.onHand.toLocaleString()}</td>
-                                                <td>{item.onOrder.toLocaleString()}</td>
-                                                <td><span className={`status-badge ${getStockAlertColor(item.stockAlert)}`}>{item.stockAlert}</span></td>
-                                                <td><span className={`status-badge ${getStatusColor(item.status)}`}>{getStatusIcon(item.status)} {item.status}</span></td>
-                                                <td>{item.shippedOn}</td>
-                                                <td>{item.expectedDelivery}</td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
+                                <DataTable
+                                    columns={columns}
+                                    data={inventory}/>  {/* Dependency - npm i react-data-table-component */}  
                             </div>
    
                             {/* ===== Todo / Action Items ===== */}
