@@ -15,7 +15,7 @@ import BudgetManagement from './Budget'; // <-- Added
 import DataTable from 'react-data-table-component';
 
 function InventoryTracke() {
-    const [activeTab, setActiveTab] = useState('inventory');
+    const [activeTab, setActiveTab] = useState('projects');
 
     // ======= Inventory Tab Data =======
     const [inventory] = useState([
