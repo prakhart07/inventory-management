@@ -3,8 +3,7 @@ import React, { useState } from 'react';
 import {
     Package, AlertTriangle, Calendar, Truck, Hammer, Check, ChevronLeft, ChevronRight, HardHat,DollarSign
 } from 'lucide-react';
-import "../Assets/CSS/Inventory.css"
-
+import "../Assets/CSS/Inventory.css";
 // Import individual tab components
 import AlertsPage from './StockAlerts';
 import DeliveryPage from './Delivery';
