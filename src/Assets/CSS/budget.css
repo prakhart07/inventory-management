@@ -940,3 +940,194 @@
   transform: translateY(-20px);
   animation: fadeInSlide 0.4s ease-in-out forwards;
 }
+/* ====================================== */
+/* RESPONSIVE DESIGN FOR BUDGET PAGE */
+/* ====================================== */
+
+/* Large tablets and small laptops (≤ 1024px) */
+@media (max-width: 1024px) {
+  .budget-main-content {
+    padding: 20px 15px;
+  }
+
+  .budget-header-content {
+    padding: 0 10px;
+  }
+
+  .budget-h1 {
+    font-size: 30px;
+  }
+
+  .budget-stats-grid {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+
+  .budget-allocation-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .budget-table {
+    min-width: 800px;
+  }
+}
+
+/* Tablets (≤ 768px) */
+@media (max-width: 768px) {
+  .budget-header {
+    padding: 20px 15px;
+    text-align: center;
+  }
+
+  .budget-header-title {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .budget-header-subtitle {
+    margin-left: 0;
+    margin-top: 8px;
+    text-align: center;
+  }
+
+  .budget-h1 {
+    font-size: 26px;
+  }
+
+  .budget-main-content {
+    padding: 20px 10px;
+  }
+
+  .budget-stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .budget-action-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .budget-search-box {
+    width: 100%;
+  }
+
+  .budget-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .budget-tabs {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .budget-tab-btn {
+    flex: 1 1 45%;
+    font-size: 14px;
+    padding: 10px 15px;
+  }
+
+  .budget-table-container {
+    overflow-x: auto;
+  }
+
+  .budget-table {
+    min-width: 650px;
+  }
+
+  .budget-allocation-card,
+  .budget-chart-card {
+    padding: 20px;
+  }
+
+  .budget-allocation-title,
+  .budget-chart-title {
+    font-size: 16px;
+  }
+
+  .budget-modal-content {
+    max-width: 95%;
+    padding: 20px;
+  }
+
+  .budget-form-actions {
+    flex-direction: column;
+  }
+
+  .budget-form-actions button {
+    width: 100%;
+  }
+
+  .budget-comparison-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+}
+
+/* Mobile (≤ 480px) */
+@media (max-width: 480px) {
+  .budget-h1 {
+    font-size: 22px;
+  }
+
+  .budget-stat-card {
+    padding: 20px 15px;
+  }
+
+  .budget-header {
+    padding: 15px 10px;
+  }
+
+  .budget-tab-btn {
+    flex: 1 1 100%;
+  }
+
+  .budget-action-bar {
+    padding: 15px;
+  }
+
+  .budget-btn {
+    font-size: 14px;
+    padding: 10px 16px;
+  }
+
+  .budget-table {
+    min-width: 500px;
+  }
+
+  .budget-allocation-card,
+  .budget-chart-card {
+    padding: 15px;
+  }
+
+  .budget-allocation-title,
+  .budget-chart-title {
+    font-size: 15px;
+  }
+
+  .budget-modal-title {
+    font-size: 18px;
+  }
+
+  .budget-modal-content {
+    padding: 15px;
+  }
+
+  .budget-comparison-bar-label {
+    width: 100px;
+    font-size: 12px;
+  }
+
+  .budget-alert-card {
+    padding: 12px 15px;
+  }
+
+  .budget-alert-title {
+    font-size: 14px;
+  }
+
+  .budget-alert-message {
+    font-size: 13px;
+  }
+}

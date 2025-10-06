@@ -680,3 +680,144 @@
   transform: translateY(-20px);
   animation: fadeInSlide 0.4s ease-in-out forwards;
 }
+/* ====================================== */
+/* EXTRA RESPONSIVE MEDIA QUERIES SECTION */
+/* ====================================== */
+
+/* Tablet screens (max-width: 1024px) */
+@media (max-width: 1024px) {
+  .expense-main-content {
+    padding: 20px 15px;
+  }
+
+  .expense-header-content {
+    padding: 0 10px;
+  }
+
+  .expense-stats-grid {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+
+  .expense-h1 {
+    font-size: 30px;
+  }
+
+  .expense-table {
+    min-width: 700px;
+  }
+}
+
+/* Mobile screens (max-width: 768px) */
+@media (max-width: 768px) {
+  .expense-header {
+    padding: 20px 15px;
+    text-align: center;
+  }
+
+  .expense-header-title {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .expense-header-subtitle {
+    margin: 10px 0 0 0;
+    text-align: center;
+  }
+
+  .expense-h1 {
+    font-size: 24px;
+  }
+
+  .expense-main-content {
+    padding: 20px 10px;
+  }
+
+  .expense-stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .expense-categories-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .expense-action-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .expense-search-box {
+    width: 100%;
+  }
+
+  .expense-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .expense-tabs {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .expense-tab-btn {
+    flex: 1 1 45%;
+    font-size: 14px;
+    padding: 10px 15px;
+  }
+
+  .expense-table-wrapper {
+    overflow-x: auto;
+  }
+
+  .expense-table {
+    min-width: 600px;
+  }
+
+  .expense-modal-content {
+    max-width: 95%;
+    padding: 15px;
+  }
+
+  .expense-modal-body {
+    padding: 20px 15px;
+  }
+
+  .expense-form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .expense-btn-cancel,
+  .expense-btn-submit {
+    flex: none;
+    width: 100%;
+  }
+}
+
+/* Very small screens (max-width: 480px) */
+@media (max-width: 480px) {
+  .expense-h1 {
+    font-size: 20px;
+  }
+
+  .expense-stat-card {
+    padding: 20px 15px;
+  }
+
+  .expense-category-btn {
+    padding: 15px 10px;
+    font-size: 13px;
+  }
+
+  .expense-category-icon {
+    font-size: 20px;
+  }
+
+  .expense-table {
+    min-width: 500px;
+  }
+
+  .expense-modal-title {
+    font-size: 20px;
+  }
+}

@@ -519,24 +519,30 @@ tbody tr:hover {
 }
 
 /* Todo Section */
+/* ===== Todo Section ===== */
 .todo-section {
-    background: white;
-    padding: 30px;
-    border-radius: 16px;
-    border: 2px solid #e0e0e0;
+    background: #fff;
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
     animation: fadeIn 1.4s ease-out;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
+/* Header */
 .todo-header {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 12px;
-    margin-bottom: 24px;
+    margin-bottom: 20px;
 }
 
 .todo-header h3 {
-    font-size: 24px;
+    font-size: 18px;
     font-weight: 700;
     color: #2c3e50;
 }
@@ -546,6 +552,7 @@ tbody tr:hover {
     animation: pulse 2s ease-in-out infinite;
 }
 
+/* Todo List */
 .todo-list {
     display: flex;
     flex-direction: column;
@@ -556,19 +563,20 @@ tbody tr:hover {
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 16px;
+    padding: 12px 15px;
     background: #f9fafb;
-    border-radius: 12px;
-    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    border: 1px solid #e0e0e0;
     transition: all 0.3s ease;
 }
 
 .todo-item:hover {
-    background: #f5f5f5;
-    border-color: #bdbdbd;
-    transform: translateX(4px);
+    background: #f3f4f6;
+    border-color: #d1d5db;
+    transform: translateY(-2px);
 }
 
+/* Checkbox */
 .todo-checkbox {
     width: 20px;
     height: 20px;
@@ -587,15 +595,25 @@ tbody tr:hover {
     border-color: #2c3e50;
 }
 
+/* Todo Text */
 .todo-text {
     flex: 1;
-    font-size: 15px;
+    font-size: 14px;
     color: #2c3e50;
 }
 
 .todo-text.completed {
     text-decoration: line-through;
     color: #9ca3af;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .todo-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
 }
 
 /* Calendar */
@@ -872,5 +890,151 @@ tbody tr:hover {
 
     .supplier-contact {
         grid-template-columns: 1fr;
+    }
+}
+/* Medium Devices (Tablets, <1024px) */
+@media (max-width: 1024px) {
+    .two-column-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+
+    .header h1 {
+        font-size: 26px;
+    }
+
+    .content {
+        padding: 30px;
+    }
+}
+
+/* Small Devices (Mobile Landscape, <768px) */
+@media (max-width: 768px) {
+    .stock-alerts,
+    .supplier-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .search-bar {
+        flex-direction: column;
+    }
+
+    .filter-btn,
+    .add-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .header {
+        padding: 20px;
+        text-align: center;
+    }
+
+    .header h1 {
+        font-size: 22px;
+        justify-content: center;
+    }
+
+    .header-subtitle {
+        font-size: 14px;
+    }
+
+    .content {
+        padding: 20px;
+    }
+
+    .section-title {
+        font-size: 20px;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .todo-section,
+    .calendar-container {
+        padding: 20px;
+    }
+
+    .supplier-contact {
+        grid-template-columns: 1fr;
+    }
+
+    .tab {
+        flex: 1 1 45%;
+        justify-content: center;
+        text-align: center;
+    }
+
+    table {
+        font-size: 13px;
+    }
+
+    th, td {
+        padding: 10px;
+        white-space: nowrap;
+    }
+
+    .table-container {
+        overflow-x: auto;
+    }
+}
+
+/* Extra Small Devices (Mobile Portrait, <480px) */
+@media (max-width: 480px) {
+    .app-container {
+        padding: 10px;
+    }
+
+    .main-card {
+        border-radius: 16px;
+    }
+
+    .header h1 {
+        font-size: 18px;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stat-card {
+        padding: 16px;
+    }
+
+    .search-bar {
+        gap: 8px;
+    }
+
+    .tab {
+        flex: 1 1 100%;
+        font-size: 14px;
+        padding: 10px 14px;
+    }
+
+    .filter-btn,
+    .add-btn {
+        font-size: 14px;
+        padding: 12px;
+    }
+
+    .alert-card,
+    .project-card,
+    .supplier-card {
+        padding: 16px;
+    }
+
+    .section-title {
+        font-size: 18px;
+    }
+
+    .todo-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .todo-text {
+        font-size: 14px;
     }
 }
