@@ -2,44 +2,50 @@ import React, { useState } from 'react';
 import { Search, Filter, Plus, X } from 'lucide-react';
 
 const initialProjects = [
-    { id: 1, name: 'Residential Complex - Phase 1', location: 'Indore North', status: 'Active', materialsNeeded: ['Cement', 'Steel', 'Bricks'] },
-    { id: 2, name: 'Commercial Plaza', location: 'Vijay Nagar', status: 'Planning', materialsNeeded: ['Cement', 'Paint', 'Tiles'] },
-    { id: 3, name: 'Highway Bridge Project', location: 'Ring Road', status: 'Active', materialsNeeded: ['Steel', 'Cement', 'Sand'] },
+    {
+        id: 1,
+        name: 'Residential Complex - Phase 1',
+        location: 'Indore North',
+        status: 'Active',
+        clientName: 'ABC Builders',
+        plotSize: 2500,
+        budget: 5000000,
+        constructionRate: 2000,
+        constructionType: 'With Material'
+    },
+    {
+        id: 2,
+        name: 'Commercial Plaza',
+        location: 'Vijay Nagar',
+        status: 'Planning',
+        clientName: 'XYZ Constructions',
+        plotSize: 5000,
+        budget: 12000000,
+        constructionRate: 2200,
+        constructionType: 'Without Material'
+    }
 ];
 
 export default function ProjectsPage() {
     const [projects, setProjects] = useState(initialProjects);
     const [showModal, setShowModal] = useState(false);
+
     const [formData, setFormData] = useState({
         name: '',
         location: '',
         status: 'Planning',
-        materialsNeeded: []
+        clientName: '',
+        plotSize: '',
+        budget: '',
+        constructionRate: '',
+        constructionType: 'With Material'
     });
-    const [materialInput, setMaterialInput] = useState('');
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData(prev => ({
             ...prev,
             [name]: value
-        }));
-    };
-
-    const handleAddMaterial = () => {
-        if (materialInput.trim()) {
-            setFormData(prev => ({
-                ...prev,
-                materialsNeeded: [...prev.materialsNeeded, materialInput.trim()]
-            }));
-            setMaterialInput('');
-        }
-    };
-
-    const handleRemoveMaterial = (index) => {
-        setFormData(prev => ({
-            ...prev,
-            materialsNeeded: prev.materialsNeeded.filter((_, i) => i !== index)
         }));
     };
 
@@ -55,14 +61,18 @@ export default function ProjectsPage() {
                 name: '',
                 location: '',
                 status: 'Planning',
-                materialsNeeded: []
+                clientName: '',
+                plotSize: '',
+                budget: '',
+                constructionRate: '',
+                constructionType: 'With Material'
             });
-            setMaterialInput('');
         }
     };
 
     return (
         <div style={{ padding: '20px', fontFamily: 'system-ui, -apple-system, sans-serif' }}>
+            {/* Top Bar */}
             <div style={{ display: 'flex', gap: '12px', marginBottom: '24px', alignItems: 'center' }}>
                 <div style={{ position: 'relative', flex: 1, maxWidth: '500px' }}>
                     <Search style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#9ca3af' }} size={20} />
@@ -111,6 +121,7 @@ export default function ProjectsPage() {
                 </button>
             </div>
 
+            {/* Project Cards */}
             <div style={{ display: 'grid', gap: '20px' }}>
                 {projects.map(project => (
                     <div key={project.id} style={{
@@ -139,27 +150,55 @@ export default function ProjectsPage() {
                                 {project.status}
                             </span>
                         </div>
-                        <div>
-                            <strong style={{ color: '#6b7280', fontSize: '14px' }}>Materials Required:</strong>
-                            <div style={{ display: 'flex', gap: '8px', marginTop: '8px', flexWrap: 'wrap' }}>
-                                {project.materialsNeeded.map((material, idx) => (
-                                    <span key={idx} style={{
-                                        background: '#fef3c7',
-                                        color: '#92400e',
-                                        padding: '6px 12px',
-                                        borderRadius: '6px',
-                                        fontSize: '13px',
-                                        fontWeight: '500'
-                                    }}>
-                                        📦 {material}
-                                    </span>
-                                ))}
+
+                        {/* Advanced Info Grid */}
+                        <div style={{
+                            display: 'grid',
+                            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+                            gap: '16px',
+                            marginTop: '16px'
+                        }}>
+                            <div style={{
+                                background: '#f9fafb',
+                                padding: '12px',
+                                borderRadius: '8px',
+                                border: '1px solid #e5e7eb'
+                            }}>
+                                <div style={{ fontSize: '12px', color: '#6b7280', marginBottom: '4px' }}>👤 Client</div>
+                                <div style={{ fontSize: '14px', fontWeight: '600', color: '#1f2937' }}>
+                                    {project.clientName || 'N/A'}
+                                </div>
+                            </div>
+
+                            <div style={{
+                                background: '#f9fafb',
+                                padding: '12px',
+                                borderRadius: '8px',
+                                border: '1px solid #e5e7eb'
+                            }}>
+                                <div style={{ fontSize: '12px', color: '#6b7280', marginBottom: '4px' }}>📐 Plot Size</div>
+                                <div style={{ fontSize: '14px', fontWeight: '600', color: '#1f2937' }}>
+                                    {project.plotSize ? `${project.plotSize} sq ft` : '-'}
+                                </div>
+                            </div>
+
+                            <div style={{
+                                background: '#f9fafb',
+                                padding: '12px',
+                                borderRadius: '8px',
+                                border: '1px solid #e5e7eb'
+                            }}>
+                                <div style={{ fontSize: '12px', color: '#6b7280', marginBottom: '4px' }}>🏗️ Type</div>
+                                <div style={{ fontSize: '14px', fontWeight: '600', color: '#1f2937' }}>
+                                    {project.constructionType}
+                                </div>
                             </div>
                         </div>
                     </div>
                 ))}
             </div>
 
+            {/* Modal */}
             {showModal && (
                 <div style={{
                     position: 'fixed',
@@ -203,66 +242,49 @@ export default function ProjectsPage() {
                             </button>
                         </div>
 
+                        {/* Form Fields */}
                         <div>
+                            {/* Project Name */}
+                            <Field label="Project Name *" name="name" value={formData.name} onChange={handleInputChange} placeholder="Enter project name" />
+
+                            {/* Location */}
+                            <Field label="Location *" name="location" value={formData.location} onChange={handleInputChange} placeholder="Enter location" />
+
+                            {/* Client Name */}
+                            <Field label="Client Name" name="clientName" value={formData.clientName} onChange={handleInputChange} placeholder="Enter client name" />
+
+                            {/* Plot Size */}
+                            <Field label="Plot Size (sq ft)" name="plotSize" type="number" value={formData.plotSize} onChange={handleInputChange} placeholder="Enter plot size" />
+
+                            {/* Budget */}
+                            <Field label="Budget (₹)" name="budget" type="number" value={formData.budget} onChange={handleInputChange} placeholder="Enter budget" />
+
+                            {/* Construction Rate */}
+                            <Field label="Construction Rate (₹/sq ft)" name="constructionRate" type="number" value={formData.constructionRate} onChange={handleInputChange} placeholder="Enter rate per sq ft" />
+
+                            {/* Construction Type */}
                             <div style={{ marginBottom: '20px' }}>
-                                <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', color: '#374151', fontSize: '14px' }}>
-                                    Project Name *
-                                </label>
-                                <input
-                                    type="text"
-                                    name="name"
-                                    value={formData.name}
+                                <label style={labelStyle}>Construction Type</label>
+                                <select
+                                    name="constructionType"
+                                    value={formData.constructionType}
                                     onChange={handleInputChange}
-                                    placeholder="Enter project name"
-                                    style={{
-                                        width: '100%',
-                                        padding: '10px 12px',
-                                        border: '1px solid #e5e7eb',
-                                        borderRadius: '8px',
-                                        fontSize: '14px',
-                                        boxSizing: 'border-box'
-                                    }}
-                                />
+                                    style={inputStyle}
+                                >
+                                    <option value="Turnkey">Turnkey</option>
+                                    <option value="Gray Box">Gray Box</option>
+                                    <option value="Labor Only">Labor Only</option>
+                                </select>
                             </div>
 
+                            {/* Status */}
                             <div style={{ marginBottom: '20px' }}>
-                                <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', color: '#374151', fontSize: '14px' }}>
-                                    Location *
-                                </label>
-                                <input
-                                    type="text"
-                                    name="location"
-                                    value={formData.location}
-                                    onChange={handleInputChange}
-                                    placeholder="Enter location"
-                                    style={{
-                                        width: '100%',
-                                        padding: '10px 12px',
-                                        border: '1px solid #e5e7eb',
-                                        borderRadius: '8px',
-                                        fontSize: '14px',
-                                        boxSizing: 'border-box'
-                                    }}
-                                />
-                            </div>
-
-                            <div style={{ marginBottom: '20px' }}>
-                                <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', color: '#374151', fontSize: '14px' }}>
-                                    Status *
-                                </label>
+                                <label style={labelStyle}>Status *</label>
                                 <select
                                     name="status"
                                     value={formData.status}
                                     onChange={handleInputChange}
-                                    style={{
-                                        width: '100%',
-                                        padding: '10px 12px',
-                                        border: '1px solid #e5e7eb',
-                                        borderRadius: '8px',
-                                        fontSize: '14px',
-                                        boxSizing: 'border-box',
-                                        cursor: 'pointer'
-                                    }}
+                                    style={inputStyle}
                                 >
                                     <option value="Planning">Planning</option>
                                     <option value="Active">Active</option>
@@ -271,112 +293,12 @@ export default function ProjectsPage() {
                                 </select>
                             </div>
 
-                            <div style={{ marginBottom: '20px' }}>
-                                <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', color: '#374151', fontSize: '14px' }}>
-                                    Materials Required
-                                </label>
-                                <div style={{ display: 'flex', gap: '8px', marginBottom: '12px' }}>
-                                    <input
-                                        type="text"
-                                        value={materialInput}
-                                        onChange={(e) => setMaterialInput(e.target.value)}
-                                        onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), handleAddMaterial())}
-                                        placeholder="Enter material name"
-                                        style={{
-                                            flex: 1,
-                                            padding: '10px 12px',
-                                            border: '1px solid #e5e7eb',
-                                            borderRadius: '8px',
-                                            fontSize: '14px'
-                                        }}
-                                    />
-                                    <button
-                                        type="button"
-                                        onClick={handleAddMaterial}
-                                        style={{
-                                            padding: '10px 20px',
-                                            background: '#10b981',
-                                            color: 'white',
-                                            border: 'none',
-                                            borderRadius: '8px',
-                                            cursor: 'pointer',
-                                            fontSize: '14px',
-                                            fontWeight: '500'
-                                        }}
-                                    >
-                                        Add
-                                    </button>
-                                </div>
-                                <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-                                    {formData.materialsNeeded.map((material, index) => (
-                                        <span
-                                            key={index}
-                                            style={{
-                                                background: '#fef3c7',
-                                                color: '#92400e',
-                                                padding: '6px 12px',
-                                                borderRadius: '6px',
-                                                fontSize: '13px',
-                                                fontWeight: '500',
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                                gap: '6px'
-                                            }}
-                                        >
-                                            📦 {material}
-                                            <button
-                                                type="button"
-                                                onClick={() => handleRemoveMaterial(index)}
-                                                style={{
-                                                    background: 'none',
-                                                    border: 'none',
-                                                    cursor: 'pointer',
-                                                    color: '#92400e',
-                                                    padding: '0',
-                                                    display: 'flex',
-                                                    alignItems: 'center'
-                                                }}
-                                            >
-                                                <X size={14} />
-                                            </button>
-                                        </span>
-                                    ))}
-                                </div>
-                            </div>
-
+                            {/* Buttons */}
                             <div style={{ display: 'flex', gap: '12px', marginTop: '32px' }}>
-                                <button
-                                    type="button"
-                                    onClick={() => setShowModal(false)}
-                                    style={{
-                                        flex: 1,
-                                        padding: '12px',
-                                        background: 'white',
-                                        color: '#374151',
-                                        border: '1px solid #e5e7eb',
-                                        borderRadius: '8px',
-                                        cursor: 'pointer',
-                                        fontSize: '15px',
-                                        fontWeight: '600'
-                                    }}
-                                >
+                                <button type="button" onClick={() => setShowModal(false)} style={cancelBtn}>
                                     Cancel
                                 </button>
-                                <button
-                                    type="button"
-                                    onClick={handleSubmit}
-                                    style={{
-                                        flex: 1,
-                                        padding: '12px',
-                                        background: '#1e293b',
-                                        color: 'white',
-                                        border: 'none',
-                                        borderRadius: '8px',
-                                        cursor: 'pointer',
-                                        fontSize: '15px',
-                                        fontWeight: '600'
-                                    }}
-                                >
+                                <button type="button" onClick={handleSubmit} style={addBtn}>
                                     Add Project
                                 </button>
                             </div>
@@ -387,3 +309,60 @@ export default function ProjectsPage() {
         </div>
     );
 }
+
+// Reusable field component
+const Field = ({ label, name, value, onChange, placeholder, type = 'text' }) => (
+    <div style={{ marginBottom: '20px' }}>
+        <label style={labelStyle}>{label}</label>
+        <input
+            type={type}
+            name={name}
+            value={value}
+            onChange={onChange}
+            placeholder={placeholder}
+            style={inputStyle}
+        />
+    </div>
+);
+
+// Styles
+const inputStyle = {
+    width: '100%',
+    padding: '10px 12px',
+    border: '1px solid #e5e7eb',
+    borderRadius: '8px',
+    fontSize: '14px',
+    boxSizing: 'border-box'
+};
+
+const labelStyle = {
+    display: 'block',
+    marginBottom: '8px',
+    fontWeight: '600',
+    color: '#374151',
+    fontSize: '14px'
+};
+
+const cancelBtn = {
+    flex: 1,
+    padding: '12px',
+    background: 'white',
+    color: '#374151',
+    border: '1px solid #e5e7eb',
+    borderRadius: '8px',
+    cursor: 'pointer',
+    fontSize: '15px',
+    fontWeight: '600'
+};
+
+const addBtn = {
+    flex: 1,
+    padding: '12px',
+    background: '#1e293b',
+    color: 'white',
+    border: 'none',
+    borderRadius: '8px',
+    cursor: 'pointer',
+    fontSize: '15px',
+    fontWeight: '600'
+};
