@@ -940,3 +940,24 @@
   transform: translateY(-20px);
   animation: fadeInSlide 0.4s ease-in-out forwards;
 }
+@media (max-width: 768px) {
+  .budget-tabs {
+    display: flex;               /* enforce flex layout */
+    flex-wrap: nowrap;           /* keep tabs in single row */
+    overflow-x: auto;            /* allow horizontal scroll */
+    -webkit-overflow-scrolling: touch; /* smooth scrolling on iOS */
+    gap: 6px;
+    padding: 6px 8px;
+  }
+
+  .budget-tabs::-webkit-scrollbar {
+    display: none;               /* hide scrollbar */
+  }
+
+  .budget-tab-btn {
+    flex: 0 0 auto;              /* prevent shrinking */
+    white-space: nowrap;          /* prevent text wrap */
+    padding: 8px 14px;
+    font-size: 14px;
+  }
+}
