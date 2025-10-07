@@ -227,17 +227,24 @@ function InventoryTracke() {
                             </div>
    
                             {/* ===== Todo / Action Items ===== */}
-                            <div className="todo-section">
-                                <h3>Action Items</h3>
-                                {todos.map(todo => (
-                                    <div key={todo.id} className="todo-item">
-                                        <div className={`todo-checkbox ${todo.completed ? 'checked' : ''}`} onClick={() => toggleTodo(todo.id)}>
-                                            {todo.completed && <Check size={16} color="white" />}
-                                        </div>
-                                        <span className={todo.completed ? 'completed' : ''}>{todo.text}</span>
-                                    </div>
-                                ))}
+<div className="todo-section">
+                    <div className="todo-header">
+                        <AlertTriangle className="pin-icon" size={28} />
+                        <h3>Action Items</h3>
+                    </div>
+                    <div className="todo-list">
+                        {todos.map(todo => (
+                            <div key={todo.id} className="todo-item">
+                                <div className={`todo-checkbox ${todo.completed ? 'checked' : ''}`}>
+                                    {todo.completed && <Check size={16} color="white" />}
+                                </div>
+                                <span className={`todo-text ${todo.completed ? 'completed' : ''}`}>
+                                    {todo.text}
+                                </span>
                             </div>
+                        ))}
+                    </div>
+                </div>
                         </div>
                     )}
 
