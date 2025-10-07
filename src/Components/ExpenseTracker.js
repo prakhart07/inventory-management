@@ -1,11 +1,12 @@
-// ExpenseTracker.jsx
 import React, { useState } from 'react';
-import '../Assets/CSS/ExpenseTrake.css'
+import { Plus, Search, Filter, X, Check, Clock, XCircle, Eye } from 'lucide-react';
+import AddForm from './Showmodel';
 
-function ExpenseTracker  ()  {
+function ExpenseTracker() {
     const [activeTab, setActiveTab] = useState('all');
     const [showModal, setShowModal] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
+    const [selectedCategory, setSelectedCategory] = useState('all');
     const [formData, setFormData] = useState({
         description: '',
         amount: '',
@@ -15,7 +16,7 @@ function ExpenseTracker  ()  {
         type: 'one-time'
     });
 
-    const expenses = [
+    const [expenses, setExpenses] = useState([
         {
             id: 1,
             description: 'Labor Cost - Site A',
@@ -82,31 +83,37 @@ function ExpenseTracker  ()  {
             type: 'recurring',
             approvedBy: 'Admin'
         }
-    ];
+    ]);
 
     const categories = [
-        { name: 'Labor', icon: '👥', color: 'blue' },
-        { name: 'Equipment', icon: '📦', color: 'purple' },
-        { name: 'Transport', icon: '🚚', color: 'orange' },
-        { name: 'Salary', icon: '💵', color: 'green' },
-        { name: 'Utilities', icon: '⚡', color: 'yellow' },
-        { name: 'Miscellaneous', icon: '📈', color: 'pink' }
-    ];
-
-    const stats = [
-        { label: 'TOTAL EXPENSES', value: '₹1,24,400', icon: '💵', gradient: 'violet' },
-        { label: 'PENDING APPROVAL', value: '₹12,000', icon: '⏰', gradient: 'amber' },
-        { label: 'APPROVED THIS MONTH', value: '₹1,04,900', icon: '✅', gradient: 'emerald' },
-        { label: 'RECURRING MONTHLY', value: '₹43,900', icon: '📅', gradient: 'blue' }
+        { name: 'Labor', icon: '👥', color: '#60a5fa', bg: '#dbeafe' },
+        { name: 'Equipment', icon: '📦', color: '#a78bfa', bg: '#e9d5ff' },
+        { name: 'Transport', icon: '🚚', color: '#fb923c', bg: '#fed7aa' },
+        { name: 'Salary', icon: '💵', color: '#34d399', bg: '#d1fae5' },
+        { name: 'Utilities', icon: '⚡', color: '#fbbf24', bg: '#fef3c7' },
+        { name: 'Miscellaneous', icon: '📈', color: '#f472b6', bg: '#fce7f3' }
     ];
 
     const handleSubmit = () => {
         if (!formData.description || !formData.amount || !formData.date || !formData.category || !formData.project) {
-            alert('Please fill in all fields');
+            alert(' Please fill in all fields');
             return;
         }
-        console.log('Expense added:', formData);
-        alert('Expense added successfully!');
+
+        const newExpense = {
+            id: expenses.length + 1,
+            description: formData.description,
+            amount: parseFloat(formData.amount),
+            category: formData.category,
+            project: formData.project,
+            date: formData.date,
+            status: 'pending',
+            type: formData.type,
+            approvedBy: null
+        };
+
+        setExpenses([newExpense, ...expenses]);
+        alert(' Expense added successfully!');
         setShowModal(false);
         setFormData({
             description: '',
@@ -118,271 +125,294 @@ function ExpenseTracker  ()  {
         });
     };
 
-    const getCategoryColor = (category) => {
-        const cat = categories.find(c => c.name === category);
-        return cat ? cat.color : 'gray';
+    const getCategoryData = (categoryName) => {
+        return categories.find(c => c.name === categoryName);
     };
 
-    const getCategoryIcon = (category) => {
-        const cat = categories.find(c => c.name === category);
-        return cat ? cat.icon : '📊';
+    const calculateStats = () => {
+        const total = expenses.reduce((sum, exp) => sum + exp.amount, 0);
+        const pending = expenses.filter(e => e.status === 'pending').reduce((sum, exp) => sum + exp.amount, 0);
+        const approved = expenses.filter(e => e.status === 'approved').reduce((sum, exp) => sum + exp.amount, 0);
+        const recurring = expenses.filter(e => e.type === 'recurring').reduce((sum, exp) => sum + exp.amount, 0);
+
+        return { total, pending, approved, recurring };
     };
+
+    const stats = calculateStats();
 
     const filteredExpenses = expenses.filter(expense => {
         const matchesSearch = expense.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
             expense.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
             expense.project.toLowerCase().includes(searchTerm.toLowerCase());
 
-        if (activeTab === 'all') return matchesSearch;
-        if (activeTab === 'pending') return matchesSearch && expense.status === 'pending';
-        if (activeTab === 'approved') return matchesSearch && expense.status === 'approved';
-        if (activeTab === 'recurring') return matchesSearch && expense.type === 'recurring';
-        return matchesSearch;
+        const matchesCategory = selectedCategory === 'all' || expense.category === selectedCategory;
+
+        let matchesTab = true;
+        if (activeTab === 'pending') matchesTab = expense.status === 'pending';
+        if (activeTab === 'approved') matchesTab = expense.status === 'approved';
+        if (activeTab === 'recurring') matchesTab = expense.type === 'recurring';
+
+        return matchesSearch && matchesCategory && matchesTab;
     });
 
+    const getCategoryExpenses = (categoryName) => {
+        return expenses.filter(e => e.category === categoryName).reduce((sum, exp) => sum + exp.amount, 0);
+    };
+
     return (
-        <div className="expense-tracker-container">
-            {/* Header */}
-            {/* <div className="expense-header">
-                <div className="expense-header-content">
-                    <div className="expense-header-title">
-                        <div className="expense-header-icon">💰</div>
-                        <h1 className="expense-h1">Expense Tracker</h1>
-                    </div>
-                    <p className="expense-header-subtitle">Indore, Madhya Pradesh | Track & Manage Construction Expenses</p>
-                </div>
-            </div> */}
-
-            <div className="expense-main-content">
-                {/* Stats Cards */}
-                <div className="expense-stats-grid">
-                    {stats.map((stat, idx) => (
-                        <div key={idx} className="expense-stat-card">
-                            <div className={`expense-stat-icon ${stat.gradient}`}>{stat.icon}</div>
-                            <p className="expense-stat-label">{stat.label}</p>
-                            <p className="expense-stat-value">{stat.value}</p>
-                        </div>
-                    ))}
+        <div style={{ padding: '24px', background: '#f8fafc', minHeight: '100vh', fontFamily: 'system-ui, sans-serif' }}>
+            {/* Stats Cards */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '20px', marginBottom: '24px' }}>
+                <div style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', padding: '24px', borderRadius: '16px', color: 'white', boxShadow: '0 4px 6px rgba(0,0,0,0.1)' }}>
+                    <div style={{ fontSize: '40px', marginBottom: '8px' }}>💵</div>
+                    <p style={{ fontSize: '12px', opacity: 0.9, marginBottom: '8px', fontWeight: '600', margin: 0 }}>TOTAL EXPENSES</p>
+                    <p style={{ fontSize: '32px', fontWeight: '700', margin: 0 }}>₹{stats.total.toLocaleString()}</p>
                 </div>
 
-                {/* Categories */}
-                <div className="expense-categories-section">
-                    <h2 className="expense-section-title">📊 Expense Categories</h2>
-                    <div className="expense-categories-grid">
-                        {categories.map((category, idx) => (
-                            <button key={idx} className={`expense-category-btn ${category.color}`}>
-                                <span className="expense-category-icon">{category.icon}</span>
-                                <span>{category.name}</span>
-                            </button>
-                        ))}
-                    </div>
+                <div style={{ background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)', padding: '24px', borderRadius: '16px', color: 'white', boxShadow: '0 4px 6px rgba(0,0,0,0.1)' }}>
+                    <div style={{ fontSize: '40px', marginBottom: '8px' }}>⏰</div>
+                    <p style={{ fontSize: '12px', opacity: 0.9, marginBottom: '8px', fontWeight: '600', margin: 0 }}>PENDING APPROVAL</p>
+                    <p style={{ fontSize: '32px', fontWeight: '700', margin: 0 }}>₹{stats.pending.toLocaleString()}</p>
                 </div>
 
-                {/* Action Bar */}
-                <div className="expense-action-bar">
-                    <div className="expense-search-box">
-                        <span className="expense-search-icon">🔍</span>
-                        <input
-                            type="text"
-                            placeholder="Search expenses..."
-                            className="expense-search-input"
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                        />
-                    </div>
-                    <button className="expense-btn expense-btn-secondary">
-                        <span>🔽</span>
-                        <span>Filter</span>
-                    </button>
-                    <button className="expense-btn expense-btn-primary" onClick={() => setShowModal(true)}>
-                        <span>➕</span>
-                        <span>Add Expense</span>
-                    </button>
+                <div style={{ background: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)', padding: '24px', borderRadius: '16px', color: 'white', boxShadow: '0 4px 6px rgba(0,0,0,0.1)' }}>
+                    <div style={{ fontSize: '40px', marginBottom: '8px' }}>✅</div>
+                    <p style={{ fontSize: '12px', opacity: 0.9, marginBottom: '8px', fontWeight: '600', margin: 0 }}>APPROVED THIS MONTH</p>
+                    <p style={{ fontSize: '32px', fontWeight: '700', margin: 0 }}>₹{stats.approved.toLocaleString()}</p>
                 </div>
 
-                {/* Tabs */}
-                <div className="expense-tabs">
-                    {['all', 'pending', 'approved', 'recurring'].map(tab => (
-                        <button
-                            key={tab}
-                            className={`expense-tab-btn ${activeTab === tab ? 'active' : ''}`}
-                            onClick={() => setActiveTab(tab)}
-                        >
-                            {tab.charAt(0).toUpperCase() + tab.slice(1)}
-                        </button>
-                    ))}
-                </div>
-
-                {/* Table */}
-                <div className="expense-table-container">
-                    <div className="expense-table-wrapper">
-                        <table className="expense-table">
-                            <thead>
-                                <tr>
-                                    <th>Description</th>
-                                    <th>Category</th>
-                                    <th>Project</th>
-                                    <th>Amount</th>
-                                    <th>Date</th>
-                                    <th>Type</th>
-                                    <th>Status</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {filteredExpenses.map((expense) => (
-                                    <tr key={expense.id}>
-                                        <td>
-                                            <div className="expense-desc">{expense.description}</div>
-                                            {expense.approvedBy && (
-                                                <div className="expense-approver">By: {expense.approvedBy}</div>
-                                            )}
-                                        </td>
-                                        <td>
-                                            <span className={`expense-category-badge ${getCategoryColor(expense.category)}`}>
-                                                <span>{getCategoryIcon(expense.category)}</span>
-                                                <span>{expense.category}</span>
-                                            </span>
-                                        </td>
-                                        <td>{expense.project}</td>
-                                        <td>
-                                            <span className="expense-amount">₹{expense.amount.toLocaleString()}</span>
-                                        </td>
-                                        <td>{new Date(expense.date).toLocaleDateString('en-IN')}</td>
-                                        <td>
-                                            <span className={`expense-type-badge ${expense.type}`}>
-                                                {expense.type}
-                                            </span>
-                                        </td>
-                                        <td>
-                                            <span className={`expense-status-badge ${expense.status}`}>
-                                                {expense.status === 'approved' && '✅ '}
-                                                {expense.status === 'pending' && '⏰ '}
-                                                {expense.status === 'rejected' && '❌ '}
-                                                {expense.status}
-                                            </span>
-                                        </td>
-                                        <td>
-                                            <a href="#" className="expense-action-link">View Details</a>
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
+                <div style={{ background: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)', padding: '24px', borderRadius: '16px', color: 'white', boxShadow: '0 4px 6px rgba(0,0,0,0.1)' }}>
+                    <div style={{ fontSize: '40px', marginBottom: '8px' }}>📅</div>
+                    <p style={{ fontSize: '12px', opacity: 0.9, marginBottom: '8px', fontWeight: '600', margin: 0 }}>RECURRING MONTHLY</p>
+                    <p style={{ fontSize: '32px', fontWeight: '700', margin: 0 }}>₹{stats.recurring.toLocaleString()}</p>
                 </div>
             </div>
 
-            {/* Modal */}
-            {showModal && (
-                <div className="expense-modal" onClick={(e) => e.target.className === 'expense-modal' && setShowModal(false)}>
-                    <div className="expense-modal-content">
-                        <div className="expense-modal-header">
-                            <span>➕</span>
-                            <h2 className="expense-modal-title">Add New Expense</h2>
-                        </div>
-                        <div className="expense-modal-body">
-                            <div className="expense-form-group">
-                                <label className="expense-form-label">Description</label>
-                                <input
-                                    type="text"
-                                    className="expense-form-input"
-                                    placeholder="Enter expense description"
-                                    value={formData.description}
-                                    onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                                />
-                            </div>
-
-                            <div className="expense-form-row">
-                                <div className="expense-form-group">
-                                    <label className="expense-form-label">Amount (₹)</label>
-                                    <input
-                                        type="number"
-                                        className="expense-form-input"
-                                        placeholder="0.00"
-                                        value={formData.amount}
-                                        onChange={(e) => setFormData({ ...formData, amount: e.target.value })}
-                                    />
-                                </div>
-                                <div className="expense-form-group">
-                                    <label className="expense-form-label">Date</label>
-                                    <input
-                                        type="date"
-                                        className="expense-form-input"
-                                        value={formData.date}
-                                        onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                                    />
-                                </div>
-                            </div>
-
-                            <div className="expense-form-row">
-                                <div className="expense-form-group">
-                                    <label className="expense-form-label">Category</label>
-                                    <select
-                                        className="expense-form-input"
-                                        value={formData.category}
-                                        onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                                    >
-                                        <option value="">Select category</option>
-                                        {categories.map(cat => (
-                                            <option key={cat.name} value={cat.name}>{cat.name}</option>
-                                        ))}
-                                    </select>
-                                </div>
-                                <div className="expense-form-group">
-                                    <label className="expense-form-label">Project</label>
-                                    <input
-                                        type="text"
-                                        className="expense-form-input"
-                                        placeholder="Enter project name"
-                                        value={formData.project}
-                                        onChange={(e) => setFormData({ ...formData, project: e.target.value })}
-                                    />
-                                </div>
-                            </div>
-
-                            <div className="expense-form-group">
-                                <label className="expense-form-label">Expense Type</label>
-                                <div className="expense-radio-group">
-                                    <label className="expense-radio-label">
-                                        <input
-                                            type="radio"
-                                            name="type"
-                                            value="one-time"
-                                            checked={formData.type === 'one-time'}
-                                            onChange={(e) => setFormData({ ...formData, type: e.target.value })}
-                                            className="expense-radio-input"
-                                        />
-                                        <span>One-time</span>
-                                    </label>
-                                    <label className="expense-radio-label">
-                                        <input
-                                            type="radio"
-                                            name="type"
-                                            value="recurring"
-                                            checked={formData.type === 'recurring'}
-                                            onChange={(e) => setFormData({ ...formData, type: e.target.value })}
-                                            className="expense-radio-input"
-                                        />
-                                        <span>Recurring</span>
-                                    </label>
-                                </div>
-                            </div>
-
-                            <div className="expense-modal-footer">
-                                <button className="expense-btn expense-btn-submit" onClick={handleSubmit}>
-                                    Add Expense
-                                </button>
-                                <button className="expense-btn expense-btn-cancel" onClick={() => setShowModal(false)}>
-                                    Cancel
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+            {/* Categories Section */}
+            <div style={{ background: 'white', borderRadius: '16px', padding: '24px', marginBottom: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
+                <h2 style={{ fontSize: '20px', fontWeight: '700', color: '#1e293b', marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '10px', margin: '0 0 20px 0' }}>
+                    📊 Expense Categories
+                </h2>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '16px' }}>
+                    {categories.map((category) => {
+                        const categoryTotal = getCategoryExpenses(category.name);
+                        return (
+                            <button
+                                key={category.name}
+                                onClick={() => setSelectedCategory(selectedCategory === category.name ? 'all' : category.name)}
+                                style={{
+                                    background: selectedCategory === category.name ? category.bg : 'white',
+                                    border: `2px solid ${selectedCategory === category.name ? category.color : '#e2e8f0'}`,
+                                    borderRadius: '12px',
+                                    padding: '16px',
+                                    cursor: 'pointer',
+                                    transition: 'all 0.2s',
+                                    textAlign: 'left'
+                                }}
+                            >
+                                <div style={{ fontSize: '32px', marginBottom: '8px' }}>{category.icon}</div>
+                                <div style={{ fontSize: '14px', fontWeight: '600', color: category.color, marginBottom: '4px' }}>{category.name}</div>
+                                <div style={{ fontSize: '18px', fontWeight: '700', color: '#1e293b' }}>₹{categoryTotal.toLocaleString()}</div>
+                            </button>
+                        );
+                    })}
                 </div>
-            )}
+            </div>
+
+            {/* Action Bar */}
+            <div style={{ display: 'flex', gap: '12px', marginBottom: '20px', flexWrap: 'wrap' }}>
+                <div style={{ position: 'relative', flex: 1, minWidth: '300px' }}>
+                    <Search style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }} size={20} />
+                    <input
+                        type="text"
+                        placeholder="Search expenses..."
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        style={{
+                            width: '100%',
+                            padding: '12px 12px 12px 42px',
+                            border: '2px solid #e2e8f0',
+                            borderRadius: '10px',
+                            fontSize: '14px',
+                            outline: 'none'
+                        }}
+                    />
+                </div>
+                {selectedCategory !== 'all' && (
+                    <button
+                        onClick={() => setSelectedCategory('all')}
+                        style={{
+                            padding: '12px 20px',
+                            background: '#ef4444',
+                            color: 'white',
+                            border: 'none',
+                            borderRadius: '10px',
+                            cursor: 'pointer',
+                            fontSize: '14px',
+                            fontWeight: '600',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '8px'
+                        }}
+                    >
+                        <X size={18} />
+                        Clear Filter
+                    </button>
+                )}
+                <button
+                    onClick={() => setShowModal(true)}
+                    style={{
+                        padding: '12px 24px',
+                        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                        color: 'white',
+                        border: 'none',
+                        borderRadius: '10px',
+                        cursor: 'pointer',
+                        fontSize: '14px',
+                        fontWeight: '600',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        boxShadow: '0 4px 6px rgba(102, 126, 234, 0.4)'
+                    }}
+                >
+                    <Plus size={18} />
+                    Add Expense
+                </button>
+            </div>
+
+            {/* Tabs */}
+            <div style={{ background: 'white', borderRadius: '12px', padding: '8px', marginBottom: '20px', display: 'flex', gap: '8px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
+                {['all', 'pending', 'approved', 'recurring'].map(tab => (
+                    <button
+                        key={tab}
+                        onClick={() => setActiveTab(tab)}
+                        style={{
+                            padding: '10px 20px',
+                            border: 'none',
+                            background: activeTab === tab ? '#1e293b' : 'transparent',
+                            color: activeTab === tab ? 'white' : '#64748b',
+                            borderRadius: '8px',
+                            cursor: 'pointer',
+                            fontWeight: '600',
+                            fontSize: '14px',
+                            transition: 'all 0.2s',
+                            textTransform: 'capitalize'
+                        }}
+                    >
+                        {tab}
+                    </button>
+                ))}
+            </div>
+
+            {/* Table */}
+            <div style={{ background: 'white', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
+                <div style={{ overflowX: 'auto' }}>
+                    <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                        <thead>
+                            <tr style={{ background: '#f8fafc', borderBottom: '2px solid #e2e8f0' }}>
+                                <th style={{ padding: '16px', textAlign: 'left', fontSize: '13px', fontWeight: '600', color: '#64748b' }}>DESCRIPTION</th>
+                                <th style={{ padding: '16px', textAlign: 'left', fontSize: '13px', fontWeight: '600', color: '#64748b' }}>CATEGORY</th>
+                                <th style={{ padding: '16px', textAlign: 'left', fontSize: '13px', fontWeight: '600', color: '#64748b' }}>PROJECT</th>
+                                <th style={{ padding: '16px', textAlign: 'left', fontSize: '13px', fontWeight: '600', color: '#64748b' }}>AMOUNT</th>
+                                <th style={{ padding: '16px', textAlign: 'left', fontSize: '13px', fontWeight: '600', color: '#64748b' }}>DATE</th>
+                                <th style={{ padding: '16px', textAlign: 'left', fontSize: '13px', fontWeight: '600', color: '#64748b' }}>TYPE</th>
+                                <th style={{ padding: '16px', textAlign: 'left', fontSize: '13px', fontWeight: '600', color: '#64748b' }}>STATUS</th>
+                                <th style={{ padding: '16px', textAlign: 'left', fontSize: '13px', fontWeight: '600', color: '#64748b' }}>ACTIONS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {filteredExpenses.map((expense) => {
+                                const catData = getCategoryData(expense.category);
+                                return (
+                                    <tr key={expense.id} style={{ borderBottom: '1px solid #e2e8f0' }}>
+                                        <td style={{ padding: '16px' }}>
+                                            <div style={{ fontWeight: '600', color: '#1e293b', marginBottom: '4px' }}>{expense.description}</div>
+                                            {expense.approvedBy && (
+                                                <div style={{ fontSize: '12px', color: '#64748b' }}>By: {expense.approvedBy}</div>
+                                            )}
+                                        </td>
+                                        <td style={{ padding: '16px' }}>
+                                            <span style={{
+                                                display: 'inline-flex',
+                                                alignItems: 'center',
+                                                gap: '6px',
+                                                padding: '6px 12px',
+                                                borderRadius: '8px',
+                                                fontSize: '13px',
+                                                fontWeight: '600',
+                                                background: catData?.bg,
+                                                color: catData?.color
+                                            }}>
+                                                <span>{catData?.icon}</span>
+                                                <span>{expense.category}</span>
+                                            </span>
+                                        </td>
+                                        <td style={{ padding: '16px', color: '#475569' }}>{expense.project}</td>
+                                        <td style={{ padding: '16px', fontWeight: '700', color: '#1e293b', fontSize: '15px' }}>
+                                            ₹{expense.amount.toLocaleString()}
+                                        </td>
+                                        <td style={{ padding: '16px', color: '#64748b', fontSize: '14px' }}>
+                                            {new Date(expense.date).toLocaleDateString('en-IN')}
+                                        </td>
+                                        <td style={{ padding: '16px' }}>
+                                            <span style={{
+                                                padding: '4px 12px',
+                                                borderRadius: '6px',
+                                                fontSize: '12px',
+                                                fontWeight: '600',
+                                                background: expense.type === 'recurring' ? '#dbeafe' : '#f1f5f9',
+                                                color: expense.type === 'recurring' ? '#1e40af' : '#475569'
+                                            }}>
+                                                {expense.type}
+                                            </span>
+                                        </td>
+                                        <td style={{ padding: '16px' }}>
+                                            <span style={{
+                                                display: 'inline-flex',
+                                                alignItems: 'center',
+                                                gap: '6px',
+                                                padding: '6px 12px',
+                                                borderRadius: '20px',
+                                                fontSize: '12px',
+                                                fontWeight: '600',
+                                                background: expense.status === 'approved' ? '#d1fae5' : expense.status === 'pending' ? '#fef3c7' : '#fee2e2',
+                                                color: expense.status === 'approved' ? '#065f46' : expense.status === 'pending' ? '#92400e' : '#991b1b'
+                                            }}>
+                                                {expense.status === 'approved' && <Check size={14} />}
+                                                {expense.status === 'pending' && <Clock size={14} />}
+                                                {expense.status === 'rejected' && <XCircle size={14} />}
+                                                {expense.status}
+                                            </span>
+                                        </td>
+                                        <td style={{ padding: '16px' }}>
+                                            <button style={{
+                                                color: '#3b82f6',
+                                                background: 'none',
+                                                border: 'none',
+                                                cursor: 'pointer',
+                                                fontWeight: '600',
+                                                fontSize: '14px',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                gap: '4px'
+                                            }}>
+                                                <Eye size={16} />
+                                                View
+                                            </button>
+                                        </td>
+                                    </tr>
+                                );
+                            })}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            {/* Add Expense Modal */}
+            {showModal && <AddForm/>}
         </div>
     );
-};
+}
 
 export default ExpenseTracker;
