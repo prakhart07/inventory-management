@@ -237,112 +237,12 @@ export default function ProjectsPage() {
                                 </select>
                             </div>
 
-                            <div style={{ marginBottom: '20px' }}>
-                                <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', color: '#374151', fontSize: '14px' }}>
-                                    Materials Required
-                                </label>
-                                <div style={{ display: 'flex', gap: '8px', marginBottom: '12px' }}>
-                                    <input
-                                        type="text"
-                                        value={materialInput}
-                                        onChange={(e) => setMaterialInput(e.target.value)}
-                                        onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), handleAddMaterial())}
-                                        placeholder="Enter material name"
-                                        style={{
-                                            flex: 1,
-                                            padding: '10px 12px',
-                                            border: '1px solid #e5e7eb',
-                                            borderRadius: '8px',
-                                            fontSize: '14px'
-                                        }}
-                                    />
-                                    <button
-                                        type="button"
-                                        onClick={handleAddMaterial}
-                                        style={{
-                                            padding: '10px 20px',
-                                            background: '#10b981',
-                                            color: 'white',
-                                            border: 'none',
-                                            borderRadius: '8px',
-                                            cursor: 'pointer',
-                                            fontSize: '14px',
-                                            fontWeight: '500'
-                                        }}
-                                    >
-                                        Add
-                                    </button>
-                                </div>
-                                <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-                                    {formData.materialsNeeded.map((material, index) => (
-                                        <span
-                                            key={index}
-                                            style={{
-                                                background: '#fef3c7',
-                                                color: '#92400e',
-                                                padding: '6px 12px',
-                                                borderRadius: '6px',
-                                                fontSize: '13px',
-                                                fontWeight: '500',
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                                gap: '6px'
-                                            }}
-                                        >
-                                            📦 {material}
-                                            <button
-                                                type="button"
-                                                onClick={() => handleRemoveMaterial(index)}
-                                                style={{
-                                                    background: 'none',
-                                                    border: 'none',
-                                                    cursor: 'pointer',
-                                                    color: '#92400e',
-                                                    padding: '0',
-                                                    display: 'flex',
-                                                    alignItems: 'center'
-                                                }}
-                                            >
-                                                <X size={14} />
-                                            </button>
-                                        </span>
-                                    ))}
-                                </div>
-                            </div>
-
+                            {/* Buttons */}
                             <div style={{ display: 'flex', gap: '12px', marginTop: '32px' }}>
-                                <button
-                                    type="button"
-                                    onClick={() => setShowModal(false)}
-                                    style={{
-                                        flex: 1,
-                                        padding: '12px',
-                                        background: 'white',
-                                        color: '#374151',
-                                        border: '1px solid #e5e7eb',
-                                        borderRadius: '8px',
-                                        cursor: 'pointer',
-                                        fontSize: '15px',
-                                        fontWeight: '600'
-                                    }}
-                                >
+                                <button type="button" onClick={() => setShowModal(false)} style={cancelBtn}>
                                     Cancel
                                 </button>
-                                <button
-                                    type="button"
-                                    onClick={handleSubmit}
-                                    style={{
-                                        flex: 1,
-                                        padding: '12px',
-                                        background: '#1e293b',
-                                        color: 'white',
-                                        border: 'none',
-                                        borderRadius: '8px',
-                                        cursor: 'pointer',
-                                        fontSize: '15px',
-                                        fontWeight: '600'
-                                    }}
-                                >
+                                <button type="button" onClick={handleSubmit} style={addBtn}>
                                     Add Project
                                 </button>
                             </div>
@@ -351,5 +251,63 @@ export default function ProjectsPage() {
                 </div>
             )}
         </div>
-    )
+    );
 }
+
+// Reusable field component
+const Field = ({ label, name, value, onChange, placeholder, type = 'text' }) => (
+    <div style={{ marginBottom: '20px' }}>
+        <label style={labelStyle}>{label}</label>
+        <input
+            type={type}
+            name={name}
+            value={value}
+            onChange={onChange}
+            placeholder={placeholder}
+            style={inputStyle}
+        />
+    </div>
+);
+
+// Styles
+const inputStyle = {
+    width: '100%',
+    padding: '10px 12px',
+    border: '1px solid #e5e7eb',
+    borderRadius: '8px',
+    fontSize: '14px',
+    boxSizing: 'border-box'
+};
+
+const labelStyle = {
+    display: 'block',
+    marginBottom: '8px',
+    fontWeight: '600',
+    color: '#374151',
+    fontSize: '14px'
+};
+
+const cancelBtn = {
+    flex: 1,
+    padding: '12px',
+    background: 'white',
+    color: '#374151',
+    border: '1px solid #e5e7eb',
+    borderRadius: '8px',
+    cursor: 'pointer',
+    fontSize: '15px',
+    fontWeight: '600'
+};
+
+const addBtn = {
+    flex: 1,
+    padding: '12px',
+    background: '#1e293b',
+    color: 'white',
+    border: 'none',
+    borderRadius: '8px',
+    cursor: 'pointer',
+    fontSize: '15px',
+    fontWeight: '600'
+    
+};
