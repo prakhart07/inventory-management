@@ -1,4 +1,4 @@
-// ProjectsPage.jsx
+ // ProjectsPage.jsx
 import React from 'react';
 import { Search, Filter, Plus } from 'lucide-react';
 import '../Assets/CSS/Inventory.css';
