@@ -680,3 +680,35 @@
   transform: translateY(-20px);
   animation: fadeInSlide 0.4s ease-in-out forwards;
 }
+@media (max-width: 768px) {
+    .expense-tabs {
+        padding: 8px 10px;
+        gap: 8px;
+    }
+
+    .expense-tab-btn {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+}@media (max-width: 768px) {
+  .expense-tabs {
+    display: flex;           /* force flex layout */
+    flex-wrap: nowrap;       /* keep in one row */
+    overflow-x: auto;        /* allow horizontal scroll */
+    -webkit-overflow-scrolling: touch; /* smooth scroll on iOS */
+    gap: 6px;
+    padding: 6px 8px;
+  }
+
+  .expense-tabs::-webkit-scrollbar {
+    display: none;           /* hide scrollbar */
+  }
+
+  .expense-tab-btn {
+    flex: 0 0 auto;          /* prevent shrinking */
+    white-space: nowrap;      /* keep text on one line */
+    padding: 8px 14px;
+    font-size: 14px;
+  }
+}
+
