@@ -365,4 +365,5 @@ const addBtn = {
     cursor: 'pointer',
     fontSize: '15px',
     fontWeight: '600'
+    
 };
