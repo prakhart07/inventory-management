@@ -1,6 +1,6 @@
- // ProjectsPage.jsx
-import React from 'react';
-import { Search, Filter, Plus } from 'lucide-react';
+// ProjectsPage.jsx
+import React, { useState } from 'react';
+import { Search, Filter, Plus, X } from 'lucide-react';
 import '../Assets/CSS/Inventory.css';
 
 const initialProjects = [
@@ -84,7 +84,7 @@ export default function ProjectsPage() {
                     <Filter size={18} />
                     Filter by Status
                 </button>
-                <button className="add-btn">
+                <button className="add-btn" onClick={() => setShowModal(true)}>
                     <Plus size={18} />
                     Add Project
                 </button>
@@ -237,7 +237,76 @@ export default function ProjectsPage() {
                                 </select>
                             </div>
 
-                            {/* Buttons */}
+                            <div style={{ marginBottom: '20px' }}>
+                                <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', color: '#374151', fontSize: '14px' }}>
+                                    Materials Needed
+                                </label>
+                                <div style={{ display: 'flex', gap: '8px', marginBottom: '12px' }}>
+                                    <input
+                                        type="text"
+                                        value={materialInput}
+                                        onChange={(e) => setMaterialInput(e.target.value)}
+                                        onKeyPress={(e) => e.key === 'Enter' && handleAddMaterial()}
+                                        placeholder="Enter material name"
+                                        style={{
+                                            flex: 1,
+                                            padding: '10px 12px',
+                                            border: '1px solid #e5e7eb',
+                                            borderRadius: '8px',
+                                            fontSize: '14px',
+                                            boxSizing: 'border-box'
+                                        }}
+                                    />
+                                    <button
+                                        type="button"
+                                        onClick={handleAddMaterial}
+                                        style={{
+                                            padding: '10px 16px',
+                                            background: '#1e293b',
+                                            color: 'white',
+                                            border: 'none',
+                                            borderRadius: '8px',
+                                            cursor: 'pointer',
+                                            fontSize: '14px',
+                                            fontWeight: '600'
+                                        }}
+                                    >
+                                        Add
+                                    </button>
+                                </div>
+                                <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                                    {formData.materialsNeeded.map((material, idx) => (
+                                        <span key={idx} style={{
+                                            background: '#fef3c7',
+                                            color: '#92400e',
+                                            padding: '6px 12px',
+                                            borderRadius: '6px',
+                                            fontSize: '13px',
+                                            fontWeight: '500',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            gap: '6px'
+                                        }}>
+                                            📦 {material}
+                                            <button
+                                                onClick={() => handleRemoveMaterial(idx)}
+                                                style={{
+                                                    background: 'none',
+                                                    border: 'none',
+                                                    cursor: 'pointer',
+                                                    padding: '0',
+                                                    color: '#92400e',
+                                                    fontSize: '16px',
+                                                    lineHeight: '1'
+                                                }}
+                                            >
+                                                ×
+                                            </button>
+                                        </span>
+                                    ))}
+                                </div>
+                            </div>
+
                             <div style={{ display: 'flex', gap: '12px', marginTop: '32px' }}>
                                 <button type="button" onClick={() => setShowModal(false)} style={cancelBtn}>
                                     Cancel
@@ -253,39 +322,6 @@ export default function ProjectsPage() {
         </div>
     );
 }
-
-// Reusable field component
-const Field = ({ label, name, value, onChange, placeholder, type = 'text' }) => (
-    <div style={{ marginBottom: '20px' }}>
-        <label style={labelStyle}>{label}</label>
-        <input
-            type={type}
-            name={name}
-            value={value}
-            onChange={onChange}
-            placeholder={placeholder}
-            style={inputStyle}
-        />
-    </div>
-);
-
-// Styles
-const inputStyle = {
-    width: '100%',
-    padding: '10px 12px',
-    border: '1px solid #e5e7eb',
-    borderRadius: '8px',
-    fontSize: '14px',
-    boxSizing: 'border-box'
-};
-
-const labelStyle = {
-    display: 'block',
-    marginBottom: '8px',
-    fontWeight: '600',
-    color: '#374151',
-    fontSize: '14px'
-};
 
 const cancelBtn = {
     flex: 1,
@@ -309,5 +345,4 @@ const addBtn = {
     cursor: 'pointer',
     fontSize: '15px',
     fontWeight: '600'
-    
 };
