@@ -202,9 +202,11 @@ function ExpenseTracker() {
                 </div>
 
                 {/* Categories Section */}
-                <div style={{ background: 'white', borderRadius: '16px', padding: '24px', marginBottom: '24px', boxShadow: '0 4px 6px rgba(0,0,0,0.1)' }}>
-                    <h2 style={{ fontSize: '20px', fontWeight: 'bold', color: '#1e293b', marginBottom: '16px' }}>📊 Expense Categories</h2>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '12px' }}>
+                <div style={{ background: 'white', borderRadius: '16px', padding: '28px', marginBottom: '24px', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
+                    <h2 style={{ fontSize: '18px', fontWeight: '700', color: '#1e293b', marginBottom: '24px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                        📊 Expense Categories
+                    </h2>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(170px, 1fr))', gap: '16px' }}>
                         {categories.map((category) => {
                             const categoryTotal = getCategoryExpenses(category.name);
                             const isSelected = selectedCategory === category.name;
@@ -371,6 +373,7 @@ function ExpenseTracker() {
                         </table>
                     </div>
                 </div>
+            </div>
 
                 {/* Add Expense Modal */}
                 {showModal && (
@@ -511,6 +514,7 @@ function ExpenseTracker() {
                 )}
             </div>
         </div>
+    
     );
 }
 
