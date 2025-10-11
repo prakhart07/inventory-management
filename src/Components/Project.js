@@ -1,6 +1,6 @@
-// ProjectsPage.jsx
+ // ProjectsPage.jsx
 import React, { useState } from 'react';
-import { Search, Filter, Plus, X } from 'lucide-react';
+import { Search, Filter, Plus } from 'lucide-react';
 import '../Assets/CSS/Inventory.css';
 
 const initialProjects = [
@@ -165,7 +165,7 @@ export default function ProjectsPage() {
                                     padding: '4px'
                                 }}
                             >
-                                <X size={24} />
+                                {/* <X size={24} /> */}
                             </button>
                         </div>
 
