@@ -8,8 +8,8 @@ import "../Assets/CSS/Inventory.css";
 import AlertsPage from './StockAlerts';
 import DeliveryPage from './Delivery';
 import SuppliersPage from './Supplier';
-import ProjectsPage from './Project';
-import ExpenseTracker from './ExpenseTracker';
+import ProjectsPage from './ProjectP';
+import ExpenseTracker from './Expense';
 import BudgetManagement from './Budget'; // <-- Added
 import DataTable from 'react-data-table-component';
 
@@ -252,7 +252,7 @@ function InventoryTracke() {
                     {activeTab === 'delivery' && <DeliveryPage />}
                     {activeTab === 'suppliers' && <SuppliersPage />}
                     {activeTab === 'projects' && <ProjectsPage />}
-                    {activeTab === 'ExpenseTracker' && <ExpenseTracker />}
+                    {activeTab === 'ExpenseTracker' && <ExpenseTracker/>}
                     {activeTab === 'budget' && <BudgetManagement />} {/* <-- Added */}
                 </div>
             </div>
