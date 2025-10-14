@@ -513,7 +513,7 @@ function ExpenseTracker() {
                     </div>
                 )}
             </div>
-        </div>
+       
     ); 
 }
 
