@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { DollarSign, TrendingUp, AlertTriangle, CheckCircle, PlusCircle, Search, Filter, BarChart3, PieChart, Building2, Wrench, Users, Package, X } from 'lucide-react';
+import '../Assets/CSS/budget.css'
 
 function BudgetManagement() {
     const [activeTab, setActiveTab] = useState('projects');
@@ -17,10 +18,10 @@ function BudgetManagement() {
 
     // Form state
     const [budgetForm, setBudgetForm] = useState({
-        Client_name:'',
+        clientName: '',
         project: '',
         category: '',
-        Recieved_amount: '',
+        amount: '',
         date: '',
         description: ''
     });
@@ -148,6 +149,7 @@ function BudgetManagement() {
         setModalType('');
         setSelectedProject(null);
         setBudgetForm({
+            clientName: '',
             project: '',
             category: '',
             amount: '',
@@ -191,102 +193,78 @@ function BudgetManagement() {
     };
 
     return (
-        <div style={{ minHeight: '100vh', background: '#f3f4f6', padding: '20px' }}>
+        <div className="budget-container">
             {/* Alert Message */}
             {alertMessage && (
-                <div style={{
-                    position: 'fixed',
-                    top: '20px',
-                    right: '20px',
-                    zIndex: 1000,
-                    background: alertMessage.type === 'success' ? '#10b981' : alertMessage.type === 'warning' ? '#f59e0b' : '#ef4444',
-                    color: 'white',
-                    padding: '16px 24px',
-                    borderRadius: '8px',
-                    boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '12px',
-                    animation: 'slideIn 0.3s ease-out'
-                }}>
+                <div className={`alert-message alert-${alertMessage.type}`}>
                     <CheckCircle size={20} />
                     <span>{alertMessage.message}</span>
-                    <button onClick={() => setAlertMessage(null)} style={{ background: 'none', border: 'none', color: 'white', cursor: 'pointer' }}>
+                    <button onClick={() => setAlertMessage(null)} className="alert-close-btn">
                         <X size={18} />
                     </button>
                 </div>
             )}
 
             {/* Main Content */}
-            <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
+            <div className="main-content">
                 {/* Stats Grid */}
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px', marginBottom: '32px' }}>
-                    <div style={{ background: 'white', padding: '28px', borderRadius: '16px', boxShadow: '0 2px 8px rgba(0,0,0,0.08)' }}>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                            <div style={{ background: '#7c3aed', padding: '14px', borderRadius: '12px', color: 'white', width: 'fit-content' }}>
+                <div className="stats-grid">
+                    <div className="stat-card">
+                        <div className="stat-content">
+                            <div className="stat-icon stat-icon-purple">
                                 <DollarSign size={28} />
                             </div>
                             <div>
-                                <div style={{ fontSize: '12px', color: '#6b7280', marginBottom: '6px', textTransform: 'uppercase', letterSpacing: '0.5px', fontWeight: '500' }}>Total Budget</div>
-                                <div style={{ fontSize: '28px', fontWeight: 'bold', color: '#1f2937' }}>{formatCurrency(totalBudget)}</div>
+                                <div className="stat-label">Total Budget</div>
+                                <div className="stat-value">{formatCurrency(totalBudget)}</div>
                             </div>
                         </div>
                     </div>
 
-                    <div style={{ background: 'white', padding: '28px', borderRadius: '16px', boxShadow: '0 2px 8px rgba(0,0,0,0.08)' }}>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                            <div style={{ background: '#ea580c', padding: '14px', borderRadius: '12px', color: 'white', width: 'fit-content' }}>
+                    <div className="stat-card">
+                        <div className="stat-content">
+                            <div className="stat-icon stat-icon-orange">
                                 <TrendingUp size={28} />
                             </div>
                             <div>
-                                <div style={{ fontSize: '12px', color: '#6b7280', marginBottom: '6px', textTransform: 'uppercase', letterSpacing: '0.5px', fontWeight: '500' }}>Total Spent</div>
-                                <div style={{ fontSize: '28px', fontWeight: 'bold', color: '#1f2937' }}>{formatCurrency(totalSpent)}</div>
+                                <div className="stat-label">Total Spent</div>
+                                <div className="stat-value">{formatCurrency(totalSpent)}</div>
                             </div>
                         </div>
                     </div>
 
-                    <div style={{ background: 'white', padding: '28px', borderRadius: '16px', boxShadow: '0 2px 8px rgba(0,0,0,0.08)' }}>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                            <div style={{ background: '#059669', padding: '14px', borderRadius: '12px', color: 'white', width: 'fit-content' }}>
+                    <div className="stat-card">
+                        <div className="stat-content">
+                            <div className="stat-icon stat-icon-green">
                                 <CheckCircle size={28} />
                             </div>
                             <div>
-                                <div style={{ fontSize: '12px', color: '#6b7280', marginBottom: '6px', textTransform: 'uppercase', letterSpacing: '0.5px', fontWeight: '500' }}>Active Projects</div>
-                                <div style={{ fontSize: '28px', fontWeight: 'bold', color: '#1f2937' }}>{activeProjects}</div>
+                                <div className="stat-label">Active Projects</div>
+                                <div className="stat-value">{activeProjects}</div>
                             </div>
                         </div>
                     </div>
 
-                    <div style={{ background: 'white', padding: '28px', borderRadius: '16px', boxShadow: '0 2px 8px rgba(0,0,0,0.08)' }}>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                            <div style={{ background: '#2563eb', padding: '14px', borderRadius: '12px', color: 'white', width: 'fit-content' }}>
+                    <div className="stat-card">
+                        <div className="stat-content">
+                            <div className="stat-icon stat-icon-blue">
                                 <AlertTriangle size={28} />
                             </div>
                             <div>
-                                <div style={{ fontSize: '12px', color: '#6b7280', marginBottom: '6px', textTransform: 'uppercase', letterSpacing: '0.5px', fontWeight: '500' }}>Critical Alerts</div>
-                                <div style={{ fontSize: '28px', fontWeight: 'bold', color: '#1f2937' }}>{criticalProjects}</div>
+                                <div className="stat-label">Critical Alerts</div>
+                                <div className="stat-value">{criticalProjects}</div>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 {/* Tabs */}
-                <div style={{ background: 'white', padding: '8px', borderRadius: '12px', marginBottom: '24px', display: 'flex', gap: '8px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
+                <div className="tabs-container">
                     {['projects', 'allocation', 'comparison', 'alerts'].map(tab => (
                         <button
                             key={tab}
                             onClick={() => setActiveTab(tab)}
-                            style={{
-                                padding: '12px 24px',
-                                border: 'none',
-                                background: activeTab === tab ? 'rgb(71, 85, 105)' : 'transparent',
-                                color: activeTab === tab ? 'white' : '#6b7280',
-                                borderRadius: '8px',
-                                cursor: 'pointer',
-                                fontSize: '14px',
-                                fontWeight: '500',
-                                transition: 'all 0.2s'
-                            }}
+                            className={`tab-button ${activeTab === tab ? 'tab-active' : ''}`}
                         >
                             {tab === 'projects' ? 'Project List' : tab === 'allocation' ? 'Budget Allocation' : tab === 'comparison' ? 'Budget vs Actual' : 'Alerts'}
                         </button>
@@ -294,54 +272,54 @@ function BudgetManagement() {
                 </div>
 
                 {/* Action Bar */}
-                <div style={{ display: 'flex', gap: '12px', marginBottom: '24px', alignItems: 'center', flexWrap: 'wrap' }}>
-                    <div style={{ flex: '1', minWidth: '250px', position: 'relative' }}>
-                        <Search size={20} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#9ca3af' }} />
+                <div className="action-bar">
+                    <div className="search-wrapper">
+                        <Search size={20} className="search-icon" />
                         <input
                             type="text"
                             placeholder="Search projects..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            style={{ width: '100%', padding: '12px 12px 12px 44px', border: '1px solid #e5e7eb', borderRadius: '8px', fontSize: '14px' }}
+                            className="search-input"
                         />
                     </div>
-                     <button style={{ padding: '14px 24px', background: '#8b5cf6', border: 'none', borderRadius: '10px', fontWeight: '600', fontSize: '14px', color: 'white', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                                            <Filter size={18} />
-                                            Filter
-                                        </button>
-                    <button onClick={() => openModal('addBudget')} style={{ padding: '12px 20px', background: 'rgb(71, 85, 105)', color: 'white', border: 'none', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', fontSize: '14px', fontWeight: '500' }}>
+                    <button className="filter-btn">
+                        <Filter size={18} />
+                        Filter
+                    </button>
+                    <button onClick={() => openModal('addBudget')} className="add-budget-btn">
                         <PlusCircle size={18} />
-                        Recieved_Money
+                        Received Money
                     </button>
                 </div>
 
                 {/* Budget Entries Section */}
                 {activeTab === 'projects' && budgetEntries.length > 0 && (
-                    <div style={{ background: 'white', padding: '24px', borderRadius: '12px', marginBottom: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
-                        <h3 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '16px', color: '#111827' }}>Recent Budget Entries</h3>
-                        <div style={{ overflowX: 'auto' }}>
-                            <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                    <div className="budget-entries-section">
+                        <h3 className="section-title">Recent Budget Entries</h3>
+                        <div className="table-wrapper">
+                            <table className="data-table">
                                 <thead>
-                                    <tr style={{ borderBottom: '2px solid #e5e7eb' }}>
-                                        <th style={{ padding: '12px', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: '#6b7280', textTransform: 'uppercase' }}>Project</th>
-                                        <th style={{ padding: '12px', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: '#6b7280', textTransform: 'uppercase' }}>Category</th>
-                                        <th style={{ padding: '12px', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: '#6b7280', textTransform: 'uppercase' }}>Amount</th>
-                                        <th style={{ padding: '12px', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: '#6b7280', textTransform: 'uppercase' }}>Date</th>
-                                        <th style={{ padding: '12px', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: '#6b7280', textTransform: 'uppercase' }}>Description</th>
+                                    <tr>
+                                        <th>Project</th>
+                                        <th>Category</th>
+                                        <th>Amount</th>
+                                        <th>Date</th>
+                                        <th>Description</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {budgetEntries.map((entry) => (
-                                        <tr key={entry.id} style={{ borderBottom: '1px solid #f3f4f6' }}>
-                                            <td style={{ padding: '16px 12px', fontSize: '14px', color: '#111827', fontWeight: '500' }}>{entry.project}</td>
-                                            <td style={{ padding: '16px 12px' }}>
-                                                <span style={{ background: '#dbeafe', color: '#1e40af', padding: '4px 12px', borderRadius: '12px', fontSize: '12px', fontWeight: '500' }}>
+                                        <tr key={entry.id}>
+                                            <td className="entry-project">{entry.project}</td>
+                                            <td>
+                                                <span className="category-badge">
                                                     {entry.category}
                                                 </span>
                                             </td>
-                                            <td style={{ padding: '16px 12px', fontSize: '14px', color: '#059669', fontWeight: '600' }}>{formatCurrency(entry.amount)}</td>
-                                            <td style={{ padding: '16px 12px', fontSize: '14px', color: '#6b7280' }}>{entry.date}</td>
-                                            <td style={{ padding: '16px 12px', fontSize: '14px', color: '#6b7280' }}>{entry.description}</td>
+                                            <td className="entry-amount">{formatCurrency(entry.amount)}</td>
+                                            <td className="entry-date">{entry.date}</td>
+                                            <td className="entry-description">{entry.description}</td>
                                         </tr>
                                     ))}
                                 </tbody>
@@ -352,57 +330,55 @@ function BudgetManagement() {
 
                 {/* Projects Table */}
                 {activeTab === 'projects' && (
-                    <div style={{ background: 'white', borderRadius: '12px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', overflow: 'hidden' }}>
-                        <div style={{ overflowX: 'auto' }}>
-                            <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-                                <thead style={{ background: '#f9fafb' }}>
+                    <div className="projects-table-container">
+                        <div className="table-wrapper">
+                            <table className="data-table">
+                                <thead>
                                     <tr>
-                                        <th style={{ padding: '16px', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: '#6b7280', textTransform: 'uppercase' }}>Project Name</th>
-                                        <th style={{ padding: '16px', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: '#6b7280', textTransform: 'uppercase' }}>Location</th>
-                                        <th style={{ padding: '16px', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: '#6b7280', textTransform: 'uppercase' }}>Manager</th>
-                                        <th style={{ padding: '16px', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: '#6b7280', textTransform: 'uppercase' }}>Budget</th>
-                                        <th style={{ padding: '16px', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: '#6b7280', textTransform: 'uppercase' }}>Spent</th>
-                                        <th style={{ padding: '16px', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: '#6b7280', textTransform: 'uppercase' }}>Progress</th>
-                                        <th style={{ padding: '16px', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: '#6b7280', textTransform: 'uppercase' }}>Status</th>
-                                        <th style={{ padding: '16px', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: '#6b7280', textTransform: 'uppercase' }}>Action</th>
+                                        <th>Project Name</th>
+                                        <th>Location</th>
+                                        <th>Manager</th>
+                                        <th>Budget</th>
+                                        <th>Spent</th>
+                                        <th>Progress</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {projects.map((project) => {
                                         const percentage = calculatePercentage(project.spent, project.totalBudget);
                                         const statusColor = getStatusColor(parseFloat(percentage));
-                                        const statusBg = statusColor === 'critical' ? '#fee2e2' : statusColor === 'warning' ? '#fef3c7' : '#d1fae5';
-                                        const statusTextColor = statusColor === 'critical' ? '#dc2626' : statusColor === 'warning' ? '#d97706' : '#059669';
 
                                         return (
-                                            <tr key={project.id} style={{ borderBottom: '1px solid #f3f4f6' }}>
-                                                <td style={{ padding: '16px' }}>
-                                                    <div style={{ fontSize: '14px', fontWeight: '500', color: '#111827', marginBottom: '4px' }}>{project.name}</div>
-                                                    <div style={{ fontSize: '12px', color: '#6b7280' }}>Start: {project.startDate}</div>
+                                            <tr key={project.id}>
+                                                <td>
+                                                    <div className="project-name">{project.name}</div>
+                                                    <div className="project-start-date">Start: {project.startDate}</div>
                                                 </td>
-                                                <td style={{ padding: '16px', fontSize: '14px', color: '#6b7280' }}>{project.location}</td>
-                                                <td style={{ padding: '16px', fontSize: '14px', color: '#111827' }}>{project.manager}</td>
-                                                <td style={{ padding: '16px', fontSize: '14px', fontWeight: '500', color: '#111827' }}>{formatCurrency(project.totalBudget)}</td>
-                                                <td style={{ padding: '16px' }}>
-                                                    <div style={{ fontSize: '14px', fontWeight: '500', color: '#111827' }}>{formatCurrency(project.spent)}</div>
-                                                    <div style={{ fontSize: '12px', color: '#6b7280' }}>{percentage}%</div>
+                                                <td className="project-location">{project.location}</td>
+                                                <td className="project-manager">{project.manager}</td>
+                                                <td className="project-budget">{formatCurrency(project.totalBudget)}</td>
+                                                <td>
+                                                    <div className="project-spent">{formatCurrency(project.spent)}</div>
+                                                    <div className="project-percentage">{percentage}%</div>
                                                 </td>
-                                                <td style={{ padding: '16px' }}>
-                                                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                                                        <div style={{ flex: 1, background: '#e5e7eb', height: '8px', borderRadius: '4px', overflow: 'hidden' }}>
-                                                            <div style={{ width: `${project.progress}%`, height: '100%', background: '#3b82f6', borderRadius: '4px' }}></div>
+                                                <td>
+                                                    <div className="progress-container">
+                                                        <div className="progress-bar-bg">
+                                                            <div className="progress-bar-fill" style={{ width: `${project.progress}%` }}></div>
                                                         </div>
-                                                        <span style={{ fontSize: '12px', fontWeight: '500', color: '#6b7280' }}>{project.progress}%</span>
+                                                        <span className="progress-text">{project.progress}%</span>
                                                     </div>
                                                 </td>
-                                                <td style={{ padding: '16px' }}>
-                                                    <span style={{ background: statusBg, color: statusTextColor, padding: '4px 12px', borderRadius: '12px', fontSize: '12px', fontWeight: '500', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                                                <td>
+                                                    <span className={`status-badge status-${statusColor}`}>
                                                         {statusColor === 'critical' || statusColor === 'warning' ? <AlertTriangle size={12} /> : <CheckCircle size={12} />}
                                                         {statusColor}
                                                     </span>
                                                 </td>
-                                                <td style={{ padding: '16px' }}>
-                                                    <button onClick={() => openModal('view', project)} style={{ color: '#3b82f6', background: 'none', border: 'none', cursor: 'pointer', fontSize: '14px', fontWeight: '500' }}>View Details</button>
+                                                <td>
+                                                    <button onClick={() => openModal('view', project)} className="view-details-btn">View Details</button>
                                                 </td>
                                             </tr>
                                         );
@@ -415,39 +391,44 @@ function BudgetManagement() {
 
                 {/* Budget Allocation Tab */}
                 {activeTab === 'allocation' && (
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '24px' }}>
-                        <div style={{ background: 'white', padding: '24px', borderRadius: '12px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
-                            <h3 style={{ display: 'flex', alignItems: 'center', gap: '12px', fontSize: '18px', fontWeight: '600', marginBottom: '24px' }}>
+                    <div className="allocation-grid">
+                        <div className="allocation-card">
+                            <h3 className="allocation-title">
                                 <Building2 size={24} />
                                 {projects[0].name}
                             </h3>
                             {budgetAllocations.map((allocation) => {
                                 const Icon = allocation.icon;
                                 const percentage = calculatePercentage(allocation.spent, allocation.allocated);
-                                const colors = { blue: '#3b82f6', purple: '#7c3aed', orange: '#f59e0b', green: '#10b981' };
 
                                 return (
-                                    <div key={allocation.id} style={{ marginBottom: '20px', padding: '16px', background: '#f9fafb', borderRadius: '8px' }}>
-                                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '12px' }}>
-                                            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                                                <div style={{ background: colors[allocation.color], padding: '8px', borderRadius: '8px', color: 'white' }}>
+                                    <div key={allocation.id} className="allocation-item">
+                                        <div className="allocation-header">
+                                            <div className="allocation-info">
+                                                <div className={`allocation-icon allocation-icon-${allocation.color}`}>
                                                     <Icon size={20} />
                                                 </div>
                                                 <div>
-                                                    <div style={{ fontSize: '14px', fontWeight: '500', color: '#111827' }}>{allocation.category}</div>
-                                                    <div style={{ fontSize: '12px', color: '#6b7280' }}>{formatCurrency(allocation.allocated)}</div>
+                                                    <div className="allocation-category">{allocation.category}</div>
+                                                    <div className="allocation-allocated">{formatCurrency(allocation.allocated)}</div>
                                                 </div>
                                             </div>
-                                            <div style={{ textAlign: 'right' }}>
-                                                <div style={{ fontSize: '12px', color: '#6b7280' }}>Spent</div>
-                                                <div style={{ fontSize: '14px', fontWeight: '600', color: '#111827' }}>{formatCurrency(allocation.spent)}</div>
+                                            <div className="allocation-spent-info">
+                                                <div className="allocation-spent-label">Spent</div>
+                                                <div className="allocation-spent-value">{formatCurrency(allocation.spent)}</div>
                                             </div>
                                         </div>
-                                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                                            <div style={{ flex: 1, background: '#e5e7eb', height: '8px', borderRadius: '4px', overflow: 'hidden' }}>
-                                                <div style={{ width: `${percentage}%`, height: '100%', background: percentage > 90 ? '#ef4444' : percentage > 75 ? '#f59e0b' : '#10b981', borderRadius: '4px' }}></div>
+                                        <div className="allocation-progress">
+                                            <div className="allocation-progress-bar">
+                                                <div
+                                                    className={`allocation-progress-fill ${percentage > 90 ? 'progress-critical' :
+                                                            percentage > 75 ? 'progress-warning' :
+                                                                'progress-healthy'
+                                                        }`}
+                                                    style={{ width: `${percentage}%` }}
+                                                ></div>
                                             </div>
-                                            <span style={{ fontSize: '12px', fontWeight: '500' }}>{percentage}%</span>
+                                            <span className="allocation-progress-text">{percentage}%</span>
                                         </div>
                                     </div>
                                 );
@@ -458,67 +439,48 @@ function BudgetManagement() {
 
                 {/* Alerts Tab */}
                 {activeTab === 'alerts' && (
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                        {alerts.map((alert) => {
-                            const alertColors = {
-                                critical: { bg: '#fee2e2', border: '#dc2626', text: '#7f1d1d' },
-                                warning: { bg: '#fef3c7', border: '#f59e0b', text: '#78350f' },
-                                info: { bg: '#dbeafe', border: '#3b82f6', text: '#1e3a8a' }
-                            };
-                            const colors = alertColors[alert.severity];
-
-                            return (
-                                <div key={alert.id} style={{ background: colors.bg, border: `1px solid ${colors.border}`, borderRadius: '12px', padding: '20px' }}>
-                                    <div style={{ display: 'flex', gap: '16px', marginBottom: '12px' }}>
-                                        <div style={{ background: colors.border, padding: '12px', borderRadius: '8px', color: 'white', height: 'fit-content' }}>
-                                            <AlertTriangle size={24} />
-                                        </div>
-                                        <div style={{ flex: 1 }}>
-                                            <h4 style={{ fontSize: '16px', fontWeight: '600', color: colors.text, marginBottom: '4px' }}>{alert.projectName}</h4>
-                                            <p style={{ fontSize: '14px', color: colors.text }}>{alert.message}</p>
-                                        </div>
-                                        <span style={{ background: colors.border, color: 'white', padding: '4px 12px', borderRadius: '12px', fontSize: '12px', fontWeight: '500', height: 'fit-content' }}>
-                                            {alert.severity}
-                                        </span>
+                    <div className="alerts-container">
+                        {alerts.map((alert) => (
+                            <div key={alert.id} className={`alert-card alert-card-${alert.severity}`}>
+                                <div className="alert-content">
+                                    <div className={`alert-icon alert-icon-${alert.severity}`}>
+                                        <AlertTriangle size={24} />
                                     </div>
-                                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', color: colors.text }}>
-                                        <span>Category: {alert.category}</span>
-                                        <span>{alert.date}</span>
+                                    <div className="alert-info">
+                                        <h4 className="alert-project-name">{alert.projectName}</h4>
+                                        <p className="alert-message">{alert.message}</p>
                                     </div>
+                                    <span className={`alert-severity-badge alert-severity-${alert.severity}`}>
+                                        {alert.severity}
+                                    </span>
                                 </div>
-                            );
-                        })}
+                                <div className="alert-footer">
+                                    <span>Category: {alert.category}</span>
+                                    <span>{alert.date}</span>
+                                </div>
+                            </div>
+                        ))}
                     </div>
                 )}
             </div>
 
             {/* Modal */}
             {showModal && (
-                <div onClick={closeModal} style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 50, padding: '20px' }}>
-                    <div onClick={(e) => e.stopPropagation()} style={{ background: 'white', borderRadius: '16px', maxWidth: '600px', width: '100%', maxHeight: '90vh', overflow: 'auto' }}>
-                        <div style={{ padding: '24px', borderBottom: '1px solid #e5e7eb' }}>
-                            <h2 style={{ fontSize: '20px', fontWeight: '600', color: '#111827' }}>
+                <div onClick={closeModal} className="modal-overlay">
+                    <div onClick={(e) => e.stopPropagation()} className="modal-content">
+                        <div className="modal-header">
+                            <h2 className="modal-title">
                                 {modalType === 'addBudget' && 'Add Budget Entry'}
                                 {modalType === 'view' && 'Project Details'}
                                 {modalType === 'filter' && 'Filter Projects'}
                             </h2>
                         </div>
 
-                        <div style={{ padding: '24px' }}>
+                        <div className="modal-body">
                             {modalType === 'addBudget' && (
-                                <form onSubmit={handleAddBudget}>
-                                    <div style={{ marginBottom: '20px' }}>
-                                        <label
-                                            style={{
-                                                display: 'block',
-                                                fontSize: '14px',
-                                                fontWeight: '500',
-                                                color: '#374151',
-                                                marginBottom: '8px',
-                                            }}
-                                        >
-                                            Client Name *
-                                        </label>
+                                <form onSubmit={handleAddBudget} className="budget-form">
+                                    <div className="form-group">
+                                        <label className="form-label">Client Name *</label>
                                         <input
                                             type="text"
                                             name="clientName"
@@ -526,26 +488,18 @@ function BudgetManagement() {
                                             onChange={handleFormChange}
                                             required
                                             placeholder="Enter client name"
-                                            style={{
-                                                width: '100%',
-                                                padding: '12px',
-                                                border: '1px solid #d1d5db',
-                                                borderRadius: '8px',
-                                                fontSize: '14px',
-                                            }}
+                                            className="form-input"
                                         />
                                     </div>
 
-                                    <div style={{ marginBottom: '20px' }}>
-                                        <label style={{ display: 'block', fontSize: '14px', fontWeight: '500', color: '#374151', marginBottom: '8px' }}>
-                                            Select Project *
-                                        </label>
+                                    <div className="form-group">
+                                        <label className="form-label">Select Project *</label>
                                         <select
                                             name="project"
                                             value={budgetForm.project}
                                             onChange={handleFormChange}
                                             required
-                                            style={{ width: '100%', padding: '12px', border: '1px solid #d1d5db', borderRadius: '8px', fontSize: '14px' }}
+                                            className="form-input"
                                         >
                                             <option value="">Choose a project</option>
                                             {projects.map(p => (
@@ -554,17 +508,15 @@ function BudgetManagement() {
                                         </select>
                                     </div>
 
-                                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '20px' }}>
-                                        <div>
-                                            <label style={{ display: 'block', fontSize: '14px', fontWeight: '500', color: '#374151', marginBottom: '8px' }}>
-                                                Category *
-                                            </label>
+                                    <div className="form-row">
+                                        <div className="form-group">
+                                            <label className="form-label">Category *</label>
                                             <select
                                                 name="category"
                                                 value={budgetForm.category}
                                                 onChange={handleFormChange}
                                                 required
-                                                style={{ width: '100%', padding: '12px', border: '1px solid #d1d5db', borderRadius: '8px', fontSize: '14px' }}
+                                                className="form-input"
                                             >
                                                 <option value="">Select category</option>
                                                 <option value="Material">Material</option>
@@ -574,98 +526,85 @@ function BudgetManagement() {
                                             </select>
                                         </div>
 
-                                        <div>
-                                            <label style={{ display: 'block', fontSize: '14px', fontWeight: '500', color: '#374151', marginBottom: '8px' }}>
-                                                Recieved_amount *
-                                            </label>
+                                        <div className="form-group">
+                                            <label className="form-label">Received Amount *</label>
                                             <input
                                                 type="number"
-                                                name="Recieved_amount"
+                                                name="amount"
                                                 value={budgetForm.amount}
                                                 onChange={handleFormChange}
                                                 placeholder="₹ 0"
                                                 required
-                                                style={{ width: '100%', padding: '12px', border: '1px solid #d1d5db', borderRadius: '8px', fontSize: '14px' }}
+                                                className="form-input"
                                             />
                                         </div>
                                     </div>
 
-                                    <div style={{ marginBottom: '20px' }}>
-                                        <label style={{ display: 'block', fontSize: '14px', fontWeight: '500', color: '#374151', marginBottom: '8px' }}>
-                                            Date *
-                                        </label>
+                                    <div className="form-group">
+                                        <label className="form-label">Date *</label>
                                         <input
                                             type="date"
                                             name="date"
                                             value={budgetForm.date}
                                             onChange={handleFormChange}
                                             required
-                                            style={{ width: '100%', padding: '12px', border: '1px solid #d1d5db', borderRadius: '8px', fontSize: '14px' }}
+                                            className="form-input"
                                         />
                                     </div>
 
-                                    <div style={{ marginBottom: '20px' }}>
-                                        <label style={{ display: 'block', fontSize: '14px', fontWeight: '500', color: '#374151', marginBottom: '8px' }}>
-                                            Description
-                                        </label>
+                                    <div className="form-group">
+                                        <label className="form-label">Description</label>
                                         <textarea
                                             name="description"
                                             value={budgetForm.description}
                                             onChange={handleFormChange}
                                             placeholder="Enter budget description..."
                                             rows="3"
-                                            style={{ width: '100%', padding: '12px', border: '1px solid #d1d5db', borderRadius: '8px', fontSize: '14px', fontFamily: 'inherit' }}
+                                            className="form-textarea"
                                         />
                                     </div>
 
-                                    <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end' }}>
-                                        <button
-                                            type="button"
-                                            onClick={closeModal}
-                                            style={{ padding: '12px 24px', background: '#f3f4f6', border: '1px solid #e5e7eb', borderRadius: '8px', fontSize: '14px', fontWeight: '500', cursor: 'pointer' }}
-                                        >
+                                    <div className="form-actions">
+                                        <button type="button" onClick={closeModal} className="btn-cancel">
                                             Cancel
                                         </button>
-                                        <button onClick={() => openModal('addBudget')} style={{ padding: '12px 20px', background: 'rgb(71, 85, 105)', color: 'white', border: 'none', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', fontSize: '14px', fontWeight: '500' }}>
+                                        <button type="submit" className="btn-submit">
                                             <PlusCircle size={18} />
-                                            Recieved_Money
+                                            Add Entry
                                         </button>
                                     </div>
                                 </form>
                             )}
 
                             {modalType === 'view' && selectedProject && (
-                                <div>
-                                    <div style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 0', borderBottom: '1px solid #f3f4f6' }}>
-                                        <span style={{ fontSize: '14px', color: '#6b7280' }}>Project Name:</span>
-                                        <span style={{ fontSize: '14px', fontWeight: '500', color: '#111827' }}>{selectedProject.name}</span>
+                                <div className="project-details">
+                                    <div className="detail-row">
+                                        <span className="detail-label">Project Name:</span>
+                                        <span className="detail-value">{selectedProject.name}</span>
                                     </div>
-                                    <div style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 0', borderBottom: '1px solid #f3f4f6' }}>
-                                        <span style={{ fontSize: '14px', color: '#6b7280' }}>Location:</span>
-                                        <span style={{ fontSize: '14px', fontWeight: '500', color: '#111827' }}>{selectedProject.location}</span>
+                                    <div className="detail-row">
+                                        <span className="detail-label">Location:</span>
+                                        <span className="detail-value">{selectedProject.location}</span>
                                     </div>
-                                    <div style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 0', borderBottom: '1px solid #f3f4f6' }}>
-                                        <span style={{ fontSize: '14px', color: '#6b7280' }}>Manager:</span>
-                                        <span style={{ fontSize: '14px', fontWeight: '500', color: '#111827' }}>{selectedProject.manager}</span>
+                                    <div className="detail-row">
+                                        <span className="detail-label">Manager:</span>
+                                        <span className="detail-value">{selectedProject.manager}</span>
                                     </div>
-                                    <div style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 0', borderBottom: '1px solid #f3f4f6' }}>
-                                        <span style={{ fontSize: '14px', color: '#6b7280' }}>Total Budget:</span>
-                                        <span style={{ fontSize: '14px', fontWeight: '500', color: '#111827' }}>{formatCurrency(selectedProject.totalBudget)}</span>
+                                    <div className="detail-row">
+                                        <span className="detail-label">Total Budget:</span>
+                                        <span className="detail-value">{formatCurrency(selectedProject.totalBudget)}</span>
                                     </div>
-                                    <div style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 0', borderBottom: '1px solid #f3f4f6' }}>
-                                        <span style={{ fontSize: '14px', color: '#6b7280' }}>Amount Spent:</span>
-                                        <span style={{ fontSize: '14px', fontWeight: '500', color: '#111827' }}>{formatCurrency(selectedProject.spent)}</span>
+                                    <div className="detail-row">
+                                        <span className="detail-label">Amount Spent:</span>
+                                        <span className="detail-value">{formatCurrency(selectedProject.spent)}</span>
                                     </div>
-                                    <div style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 0' }}>
-                                        <span style={{ fontSize: '14px', color: '#6b7280' }}>Progress:</span>
-                                        <span style={{ fontSize: '14px', fontWeight: '500', color: '#111827' }}>{selectedProject.progress}%</span>
+                                    <div className="detail-row">
+                                        <span className="detail-label">Progress:</span>
+                                        <span className="detail-value">{selectedProject.progress}%</span>
                                     </div>
 
-                                    <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '24px' }}>
-                                        <button
-                                            onClick={closeModal}
-                                            style={{ padding: '12px 24px', background: '#3b82f6', color: 'white', border: 'none', borderRadius: '8px', fontSize: '14px', fontWeight: '500', cursor: 'pointer' }}
-                                        >
+                                    <div className="modal-footer">
+                                        <button onClick={closeModal} className="btn-close">
                                             Close
                                         </button>
                                     </div>
@@ -673,14 +612,11 @@ function BudgetManagement() {
                             )}
 
                             {modalType === 'filter' && (
-                                <div style={{ textAlign: 'center', padding: '40px 20px' }}>
-                                    <Filter size={48} style={{ color: '#9ca3af', marginBottom: '16px' }} />
-                                    <h3 style={{ fontSize: '16px', fontWeight: '500', color: '#111827', marginBottom: '8px' }}>Filter Feature</h3>
-                                    <p style={{ fontSize: '14px', color: '#6b7280', marginBottom: '24px' }}>Filter functionality coming soon!</p>
-                                    <button
-                                        onClick={closeModal}
-                                        style={{ padding: '12px 24px', background: '#3b82f6', color: 'white', border: 'none', borderRadius: '8px', fontSize: '14px', fontWeight: '500', cursor: 'pointer' }}
-                                    >
+                                <div className="filter-placeholder">
+                                    <Filter size={48} className="filter-icon" />
+                                    <h3 className="filter-title">Filter Feature</h3>
+                                    <p className="filter-description">Filter functionality coming soon!</p>
+                                    <button onClick={closeModal} className="btn-close">
                                         Close
                                     </button>
                                 </div>
